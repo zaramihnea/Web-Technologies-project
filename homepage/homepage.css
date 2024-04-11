@@ -1,0 +1,54 @@
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    height: 100vh;
+    background-color: antiquewhite;
+}
+
+.navbar {
+    height: 4em;
+    background-color: aqua;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 6em;
+    position: sticky;
+}
+
+.navbar--buttons {
+    display: flex;
+    list-style-type: none;
+}
+
+.navbar--button {
+    padding-left: 3em;
+}
+
+.content {
+    overflow: auto;
+    padding: 3em;
+    height: 100vh;
+}
+
+.content--box {
+    display: flex;
+    height: 100vh;
+}
+
+.content--box--inner {
+    height: 5em;
+    width: 5em;
+    background-color: aquamarine;
+    border: 2px;
+    border-color: black;
+}
+
+.shoppingList{
+    bottom: 0px;
+    align-self: center;
+    position: absolute;
+    height: 5em;
+    width: 40em;
+    max-width: 60%;
+}
