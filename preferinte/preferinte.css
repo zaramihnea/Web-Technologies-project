@@ -26,33 +26,34 @@ body {
 }
 
 .content {
-    overflow: auto;
-    padding: 3em;
+    margin: 2em;
     height: 100vh;
-    margin-bottom: 6em;
-}
-
-.content--box {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    height: 100vh;
+    flex-direction: column;
+    align-items: center;
 }
 
-.content--box--inner {
-    height: 10em;
-    width: 10em;
-    margin: 1em;
-    background-color: aquamarine;
+.content--pref {
+    margin-bottom: 2em;
+    max-width: 20em;
+    min-width: 15em;
+    width: 30%;
+}
+
+.content--pref--items{
     border: 2px;
+    border-style: solid;
     border-color: black;
+    padding: 1em;
 }
 
-.shoppingList{
-    bottom: 0px;
-    align-self: center;
-    position: absolute;
-    height: 5em;
-    width: 40em;
-    max-width: 60%;
+ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+h2 {
+    margin: 0px;
+    margin-bottom: 0.5em;
 }
