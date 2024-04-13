@@ -3,12 +3,15 @@ body {
     flex-direction: column;
     margin: 0px;
     height: 100vh;
-    background-color: antiquewhite;
+    background-color: white;
+    opacity: 0.8;
+    background-image: radial-gradient(darkorange 0.5px, white 0.5px);
+    background-size: 10px 10px;
 }
 
 .navbar {
     height: 4em;
-    background-color: aqua;
+    background-color: darkorange;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,16 +22,18 @@ body {
 .navbar--buttons {
     display: flex;
     list-style-type: none;
+    align-items: center;
 }
 
 .navbar--button {
     padding-left: 3em;
+    color: white;
 }
 
 .content {
-    overflow: auto;
+    overflow: hidden;
     padding: 3em;
-    height: 100vh;
+    height: 100%;
     margin-bottom: 6em;
 }
 
@@ -37,22 +42,28 @@ body {
     flex-wrap: wrap;
     justify-content: space-around;
     height: 100vh;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: auto;
 }
 
 .content--box--inner {
     height: 10em;
     width: 10em;
     margin: 1em;
-    background-color: aquamarine;
+    background-color: orange;
     border: 2px;
-    border-color: black;
+    border-color: darkgray;
 }
 
 .shoppingList{
-    bottom: 0px;
+    bottom: -10px;
     align-self: center;
     position: absolute;
-    height: 5em;
+    height: 7em;
     width: 40em;
     max-width: 60%;
+    border: 1px solid darkgray;
+    border-radius: 10px;
 }

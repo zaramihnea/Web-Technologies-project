@@ -4,11 +4,14 @@ body {
     margin: 0px;
     height: 100vh;
     background-color: antiquewhite;
+    opacity: 0.8;
+    background-image: radial-gradient(darkorange 0.5px, white 0.5px);
+    background-size: 10px 10px;
 }
 
 .navbar {
     height: 4em;
-    background-color: aqua;
+    background-color: darkorange;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -23,6 +26,7 @@ body {
 
 .navbar--button {
     padding-left: 3em;
+    color: white;
 }
 
 .content {
