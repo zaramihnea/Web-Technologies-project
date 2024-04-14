@@ -7,10 +7,8 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: white;
-  opacity: 0.8;
-  background-image: radial-gradient(darkorange 0.5px, white 0.5px);
-  background-size: 10px 10px;
+  background-image: url("../dots2.jpg");
+  background-size: cover;
 }
 
 .title-container {
@@ -20,7 +18,7 @@ body {
 }
 
 .title-container h1 {
-  color: orange;
+  color: white;
 }
 
 .preference-container {

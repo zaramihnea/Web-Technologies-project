@@ -4,9 +4,8 @@ body {
     margin: 0px;
     height: 100vh;
     background-color: white;
-    opacity: 0.8;
-    background-image: radial-gradient(darkorange 0.5px, white 0.5px);
-    background-size: 10px 10px;
+    background-image: url("../dots1.png");
+    background-size: cover;
 }
 
 .navbar {
