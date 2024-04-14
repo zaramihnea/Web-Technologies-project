@@ -47,42 +47,43 @@
     </section>
     
     <section>
-      <h2>External Interface Requirements</h2>
-      <p>This section describes the various interfaces required by the web application for optimal operation:</p>
-      <ul>
-          <li><strong>User Interfaces:</strong> The application features a responsive web design and utilizes standardized GUI elements such as buttons and error messages to ensure a user-friendly experience across various devices.</li>
-          <li><strong>Hardware Interfaces:</strong> There are no hardware interfaces since this is a purely web-based application.</li>
-          <li><strong>Software Interfaces:</strong> 
-              <ul>
-                  <li>API: The application integrates with the Open Food Facts API to retrieve data.</li>
-                  <li>Database: PostgreSQL is used for storing user data and preferences, ensuring robust data management and retrieval.</li>
-              </ul>
-          </li>
-          <li><strong>Communications Interfaces:</strong> The application communicates over the internet using HTTP/HTTPS protocols, adhering to RESTful API standards for data interaction.</li>
-      </ul>
-  </section>
+        <h2>User Classes and Characteristics</h2>
+        <p>Different user classes have specific roles and responsibilities within the system:</p>
+        <ul>
+            <li><strong>Administrators:</strong> Responsible for managing system settings and user accounts.</li>
+            <li><strong>End Users:</strong> Individuals or groups who manage their dietary preferences using the system.</li>
+            <li><strong>Data Analysts:</strong> Users who analyze statistical data for identifying trends and reports.</li>
+        </ul>
+    </section>
 
-  <section>
-      <h2>System Features</h2>
-      <p>The web application is equipped with several critical features to enhance user experience:</p>
-      <ul>
-          <li><strong>User Account Management:</strong> Essential for a personalized experience, this high-priority feature allows users to register, log in, and manage their accounts securely. The system ensures robust authentication and profile management capabilities.</li>
-          <li><strong>Shopping List Generator:</strong> A core functionality that has a medium priority, enabling users to generate, edit, and store shopping lists based on their preferences and dietary needs.</li>
-      </ul>
-  </section>
+    <section>
+        <h2>Operating Environment</h2>
+        <p>The system is web-based and is designed to support major web browsers including Chrome, Firefox, and Safari on both desktop and mobile platforms.</p>
+    </section>
 
-  <section>
-      <h2>Other Nonfunctional Requirements</h2>
-      <p>This application also adheres to various nonfunctional requirements that ensure its efficiency and security:</p>
-      <ul>
-          <li><strong>Software Quality Attributes:</strong> 
-              <ul>
-                  <li>Usability: Features an intuitive UI/UX design that makes navigation and operation straightforward for all users.</li>
-                  <li>Reliability: Guarantees 99.9% uptime to ensure that the system is always available when users need it.</li>
-                  <li>Maintainability: The codebase is well-documented and modular, facilitating easy updates and maintenance.</li>
-              </ul>
-          </li>
-      </ul>
-  </section>
+    <section>
+        <h2>User Interfaces</h2>
+        <p>The application features a responsive web design with standardized GUI elements such as buttons and error messages to ensure a consistent and intuitive user experience across all device types.</p>
+    </section>
+
+    <section>
+        <h2>System Features</h2>
+        <p>The application includes several key features that are crucial for its functionality:</p>
+
+        <article>
+            <h3>User Account Management</h3>
+            <p><strong>Description and Priority:</strong> High priority. Essential for a personalized user experience.</p>
+            <p><strong>Stimulus/Response Sequences:</strong> Users register and log in, following which the system authenticates them and grants access.</p>
+            <p><strong>Functional Requirements:</strong> The system must support secure authentication and comprehensive user profile management.</p>
+        </article>
+
+        <article>
+            <h3>Shopping List Generator</h3>
+            <p><strong>Description and Priority:</strong> Medium priority. This feature is core for practical usage.</p>
+            <p><strong>Functional Requirements:</strong> Allows users to generate, edit, and store shopping lists based on their preferences.</p>
+        </article>
+
+    </section>
+
   </body>
 </html>
