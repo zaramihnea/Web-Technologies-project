@@ -7,7 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url("../dots2.jpg");
+    background-image: url("../backgrounds/dots2.jpg");
     background-size: cover;
 }
 
@@ -23,11 +23,11 @@ body {
 
 .login-container {
     background-color: #fff;
-    padding: 40px;
+    padding: 40px; /* Increased padding */
     border-radius: 8px;
     margin-bottom: auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
+    max-width: 400px; /* Set maximum width */
 }
 
 .login-container h2 {
@@ -36,14 +36,15 @@ body {
 }
 
 .login-container input[type="text"],
-.login-container input[type="password"]{
+.login-container input[type="password"],
+.login-container input[type="email"] {
     width: 100%;
-    padding: 15px;
-    margin-bottom: 20px;
+    padding: 15px; /* Increased padding */
+    margin-bottom: 20px; /* Increased margin */
     border: 1px solid #ccc;
     border-radius: 8px;
     box-sizing: border-box;
-    font-size: 18px;
+    font-size: 18px; /* Increased font size */
 }
 
 .login-container input[type="checkbox"] {
@@ -55,7 +56,7 @@ body {
     background-color: orange;
     color: #fff;
     border: none;
-    padding: 15px;
+    padding: 15px; /* Increased padding */
     border-radius: 8px;
     cursor: pointer;
     font-size: 18px;
@@ -67,7 +68,7 @@ body {
 
 .login-container p {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 20px; /* Increased margin */
     font-size: 18px;
 }
 

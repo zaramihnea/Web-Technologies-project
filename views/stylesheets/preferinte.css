@@ -3,7 +3,7 @@ body {
     flex-direction: column;
     margin: 0px;
     height: 100vh;
-    background-image: url("../dots1.png");
+    background-image: url("../backgrounds/dots1.png");
     background-size: cover;
 }
 
@@ -20,6 +20,7 @@ body {
 .navbar--buttons {
     display: flex;
     list-style-type: none;
+    align-items: center;
 }
 
 .navbar--button {
@@ -28,49 +29,34 @@ body {
 }
 
 .content {
+    margin: 2em;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    justify-content: center;
     align-items: center;
 }
 
-.content--email {
-    display: flex;
-    flex-direction: column;
-    width: max-content;
-    max-width: 10em;
-    min-width: 8em;
+.content--pref {
+    margin-bottom: 2em;
+    max-width: 20em;
+    min-width: 15em;
     width: 30%;
 }
 
-.content--resetPass {
-    max-width: 10em;
-    min-width: 8em;
-    width: 30%;
+.content--pref--items{
+    border: 2px;
+    border-style: solid;
+    border-color: black;
+    padding: 1em;
 }
 
-.content--resetPass--form {
-    display: grid;
+ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
 }
 
-div {
-    font-size: xx-large;
-    margin-bottom: 1em;
-}
-
-label {
-    font-size: large;
-    padding-bottom: 0.5em;
-}
-
-input {
-    height: 1.7em;
+h2 {
+    margin: 0px;
     margin-bottom: 0.5em;
-}
-
-p {
-    margin: 0;
-    margin-bottom: 0.5em;
-    font-size: larger;
 }

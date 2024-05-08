@@ -4,7 +4,7 @@ body {
     margin: 0px;
     height: 100vh;
     background-color: white;
-    background-image: url("../dots1.png");
+    background-image: url("../backgrounds/dots1.png");
     background-size: cover;
 }
 

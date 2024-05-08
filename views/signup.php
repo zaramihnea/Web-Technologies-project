@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <meta name="description" content="">
-    <link rel="stylesheet" type="text/css" href="stylesheets/signup.css">
-    <link rel="stylesheet" type="text/css" href="responsive/signup.css">
+    <link rel="stylesheet" type="text/css" href="../views/stylesheets/signup.css">
+    <link rel="stylesheet" type="text/css" href="../views/responsive/signup.css">
     <title>Sign up</title>
   </head>
   <body>
@@ -15,11 +15,12 @@
     
     <div class="login-container">
         <h2>Sign up</h2>
-        <form action="personalization1.html" method="post">
+        <form action="culinary_controller.php?action=addCred" method="post">
             <input type="text" name="user_name" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="password" name="password2" placeholder="Retype Password" required>
-            <p>Already have an account? <a href="login.html">Log in</a></p>
+            <p style="color:red"><?php if(isset($errorMessage2)) { echo $errorMessage2; } ?></p>
+            <p>Already have an account? <a href="culinary_controller.php?action=login">Log in</a></p>
             <input type="submit" value="Sign up">
         </form>
     </div>

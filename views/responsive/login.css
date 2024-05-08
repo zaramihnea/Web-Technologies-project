@@ -17,7 +17,7 @@
     .login-container input[type="submit"] {
         padding: 8px; /* Reduce padding for better fitting */
         font-size: 0.9em; /* Reduce font size for better fitting */
-    }
+    } 
 }
 
 /* Styles for screens between 600px and 1024px */

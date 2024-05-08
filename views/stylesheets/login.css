@@ -7,7 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url("../dots2.jpg");
+    background-image: url("../backgrounds/dots2.jpg");
     background-size: cover;
 }
 
@@ -80,3 +80,4 @@ body {
 .login-container p a:hover {
     text-decoration: underline;
 }
+

@@ -1,0 +1,52 @@
+/* Media query for mobile devices */
+@media screen and (max-width: 1096px){
+    .container {
+        flex-direction: row; /* Change to horizontal layout on smaller screens */
+    }
+
+    .split {
+        width: 50%; /* Each split screen takes 50% of the screen width */
+        height: 100%; /* Occupy full height */
+        padding: 20px; /* Add padding for spacing */
+        box-sizing: border-box; /* Ensure padding is included in width */
+    }
+
+    .left {
+        background-color: whitesmoke;
+    }
+
+    .right {
+        background-color: white;
+    }
+    button {
+        padding: 10px 15px;
+        margin: 0 5px;
+        
+    }
+
+    .centered img {
+        width: 100px;
+    }
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 600px) {
+    .container {
+        flex-direction: column; /* Change to vertical layout on mobile */
+        height: 100vh; /* Set container height to full viewport height */
+    }
+
+    .split {
+        width: 100%; /* Occupy full width on mobile */
+        height: 50%; /* Each split screen takes 50% of the screen height */
+        box-sizing: border-box; /* Ensure padding is included in width */
+    }
+
+    .left {
+        background-color: whitesmoke;
+    }
+
+    .right {
+        background-color: white;
+    }
+}
