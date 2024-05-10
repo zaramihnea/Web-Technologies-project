@@ -12,22 +12,22 @@
     <div class="title-container">
         <h1>Culinary Preferences Organizer</h1>
     </div>
+
     
     <div class="login-container">
+        <div class="back-button-container">
+          <a class="back-button" href="javascript:history.back()">< Back</a>
+        </div>
         <h2>Login</h2>
         <form action="culinary_controller.php?action=checkCred" method="post">
-            <input type="text" name="user_name" placeholder="Username" required>
+            <input type="text" name="user_name" placeholder="Username/email" required>
             <input type="password" name="password" placeholder="Password" required>
             <p style="color:red"><?php if(isset($errorMessage)) { echo $errorMessage; } ?></p>
             <p> Don't have an account? <a href="culinary_controller.php?action=signup">Sign up now!</a> </p>
-            <p> Forgot your password? <a href="reset-password.html">Reset password</a> </p>
             <p><input type="checkbox" id="rememberme" name="rememberme" value="no">
             <label for="rememberme"> Remember me?</label></p>
             <input type="submit" value="Login">
         </form>
     </div>
-    <footer>
-      <p>Photo by <a href="https://unsplash.com/@amseaman?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Andrew Seaman</a> on <a href="https://unsplash.com/photos/a-blurry-photo-of-a-bunch-of-lights-J65VbXRtgrU?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></p>
-    </footer>
   </body>
 </html>

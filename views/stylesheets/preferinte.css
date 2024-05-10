@@ -1,9 +1,10 @@
 body {
+    font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     margin: 0px;
     height: 100vh;
-    background-image: url("../backgrounds/dots1.png");
+    background-color: #fff8f5;
     background-size: cover;
 }
 
@@ -36,27 +37,58 @@ body {
     align-items: center;
 }
 
-.content--pref {
-    margin-bottom: 2em;
-    max-width: 20em;
-    min-width: 15em;
-    width: 30%;
+.favorite-foods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-.content--pref--items{
-    border: 2px;
-    border-style: solid;
-    border-color: black;
-    padding: 1em;
+input[type="checkbox"] {
+    display: none;
 }
 
-ul {
-    list-style: none;
-    padding: 0px;
-    margin: 0px;
+label {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: orange;
+    color: white;
+    text-align: center;
+    line-height: 150px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-h2 {
-    margin: 0px;
-    margin-bottom: 0.5em;
+input[type="checkbox"]:checked + label {
+    background-color: lightsalmon;
+}
+
+.button-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+}
+
+.button-container button {
+    width: 50px;
+    height: 50px;
+    margin: 0 10px;
+    font-size: 24px;
+    background-color: orangered;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.button-container button:hover {
+    background-color: red;
+}
+
+.button-container button#savePreferences {
+    font-size: 16px;
 }

@@ -1,11 +1,17 @@
 body {
+    font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     margin: 0px;
     height: 100vh;
-    background-color: white;
-    background-image: url("../backgrounds/dots1.png");
+    background-color: #fff8f5;
     background-size: cover;
+}
+
+h1 {
+    font-size: 2em;
+    color: darkorange;
+    text-align: center;
 }
 
 .navbar {

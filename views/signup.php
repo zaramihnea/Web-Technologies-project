@@ -14,6 +14,9 @@
     </div>
     
     <div class="login-container">
+        <div class="back-button-container">
+          <a class="back-button" href="javascript:history.back()">< Back</a>
+        </div>
         <h2>Sign up</h2>
         <form action="culinary_controller.php?action=addCred" method="post">
             <input type="text" name="user_name" placeholder="Username" required>
@@ -24,6 +27,6 @@
             <input type="submit" value="Sign up">
         </form>
     </div>
-    <p>Photo by <a href="https://unsplash.com/@amseaman?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Andrew Seaman</a> on <a href="https://unsplash.com/photos/a-blurry-photo-of-a-bunch-of-lights-J65VbXRtgrU?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></p>
+   
   </body>
 </html>
