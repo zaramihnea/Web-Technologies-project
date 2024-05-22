@@ -1,0 +1,66 @@
+@media (max-width: 575.98px) {
+    .navbar {
+        padding-inline: 0.5em; 
+    }
+
+    .button {
+        padding-left: 0.5em; 
+    }
+    
+    .split {
+        flex-direction: column-reverse;
+    }
+
+    .right {
+        flex: 1;
+        margin: 0 5px;
+        overflow-y: auto;
+    }
+
+    h1 {
+        font-size: 1.2em;
+    }
+
+    .shoppingList {
+        width: 90%;
+        max-width: none;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .navbar {
+        padding-inline: 1em;
+    }
+
+    .split {
+        flex-direction: column-reverse;
+    }
+
+    .right {
+        flex: 1;
+        margin: 0 5px;
+        overflow-y: auto;
+    }
+
+    .button {
+        padding-left: 1em;
+    }
+
+    h1 {
+        font-size: 1.3em;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .navbar {
+        padding-inline: 2em;
+    }
+
+    .button {
+        padding-left: 2em;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+}

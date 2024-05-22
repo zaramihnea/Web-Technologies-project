@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../views/stylesheets/preferinte.css">
+    <link rel="stylesheet" href="../views/user/stylesheets/preferinte.css">
+    <link rel="stylesheet" href="../views/user/responsive/preferinte.css">
     <title>Preferinte</title>
 </head>
 <body>
-    <nav class="navbar">
-        <a href=" ../views/homepage.php"><img src="../views/icons/home_app_logo.svg" alt="Home button" ></a>
+<nav class="navbar">
+        <img id="logo" src="../views/user/icons/logo.jpeg" alt="Logo" >
         <ul class="navbar--buttons">
-            <li class="navbar--button"><a href=" ../views/homepage.php">Home</a></li>
-            <li class="navbar--button"><a href="../views/preferinte.html">Preferences</a></li>
-            <li class="navbar--button"><a href=" ../views/account.html"><img src="../views/icons/account_circle.svg" alt="Account icon"></a></li>
+            <li class="navbar--button"><a class= "button" href="../controllers/culinary_controller.php?action=redirectHome">Home</a></li>
+            <li class="navbar--button"><a class= "button" href="../controllers/culinary_controller.php?action=redirectPrefs">Preferences</a></li>
+            <li class="navbar--button"><a class= "button" href=" ../controllers/culinary_controller.php?action=redirectAcc"><img class="myAccount" src="../views/user/icons/account-circle.png" alt="Account icon"/></a></li>
         </ul>
     </nav>
     <section class="content">
         <h2>View and edit your preferences:</h2>
-        <form id="preferencesForm" action="culinary_controller.php?action=modifyPref" method="post">
+        <form id="preferencesForm" action="culinary_controller.php" method="post">
+            <input type="hidden" name="action" value="modifyPref">
             <div class="favorite-foods" id="favoriteFoods">
                 <?php
                     foreach ($preferences as $preference) {

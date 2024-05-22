@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <meta name="description" content="">
-    <link rel="stylesheet" type="text/css" href="../views/stylesheets/signup.css">
-    <link rel="stylesheet" type="text/css" href="../views/responsive/signup.css">
+    <link rel="stylesheet" type="text/css" href="../views/user/stylesheets/signup.css">
+    <link rel="stylesheet" type="text/css" href="../views/user/responsive/signup.css">
     <title>Sign up</title>
   </head>
   <body>
@@ -18,7 +18,8 @@
           <a class="back-button" href="javascript:history.back()">< Back</a>
         </div>
         <h2>Sign up</h2>
-        <form action="culinary_controller.php?action=addCred" method="post">
+        <form action="culinary_controller.php" method="post">
+            <input type="hidden" name="action" value="addCred">
             <input type="text" name="user_name" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="password" name="password2" placeholder="Retype Password" required>

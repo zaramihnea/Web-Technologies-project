@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
   <meta name="description" content="">
-  <link rel="stylesheet" href="../views/stylesheets/personalization.css">
-  <link rel="stylesheet" href="../views/responsive/personalization.css">
+  <link rel="stylesheet" href="../views/user/stylesheets/personalization.css">
+  <link rel="stylesheet" href="../views/user/responsive/personalization.css">
   <title>Personalize your account</title>
 </head>
 <body>
@@ -14,53 +14,54 @@
       </div>
     <div class="preference-container">
         <p>Select your first culinary preferences:</p>
-        <form action="culinary_controller.php?action=pref2" method="post">
+        <form action="culinary_controller.php" method="post">
+         <input type="hidden" name="action" value="pref2">
             <div class="preference-grid">
                 <div class="box vegan">
                    <label>
-                      <input type="checkbox" value="no"><span>Vegan</span>
+                      <input type="checkbox" name="preferences[]" value="Vegan"><span>Vegan</span>
                    </label>
                 </div>
                 
                 <div class="box dairy">
                    <label>
-                      <input type="checkbox" value="no"><span>Dairy</span>
+                      <input type="checkbox" name="preferences[]" value="Dairy"><span>Dairy</span>
                    </label>
                 </div>
                 
                 <div class="box meat">
                    <label>
-                      <input type="checkbox" value="no"><span>Meat</span>
+                      <input type="checkbox" name="preferences[]" value="Meat"><span>Meat</span>
                    </label>
                 </div>
                 
                 <div class="box seafood">
                    <label>
-                      <input type="checkbox" value="no"><span>Seafood</span>
+                      <input type="checkbox" name="preferences[]" value="Seafood"><span>Seafood</span>
                    </label>
                 </div>
                 
                 <div class="box fruits">
                    <label>
-                      <input type="checkbox" value="no"><span>Fruits</span>
+                      <input type="checkbox" name="preferences[]" value="Fruits"><span>Fruits</span>
                    </label>
                 </div>
                 
                 <div class="box vegetarian">
                    <label>
-                      <input type="checkbox" value="no"><span>Vegetarian</span>
+                      <input type="checkbox" name="preferences[]" value="Vegetarian"><span>Vegetarian</span>
                    </label>
                 </div>
                 
                   <div class="box junk">
                    <label>
-                      <input type="checkbox" value="no"><span>Junk</span>
+                      <input type="checkbox" name="preferences[]" value="Junk"><span>Junk</span>
                    </label>
                 </div>
                 
                   <div class="box pasta">
                    <label>
-                      <input type="checkbox" value="no"><span>Pasta</span>
+                      <input type="checkbox" name="preferences[]" value="no"><span>Pasta</span>
                    </label>
                 </div>
                 

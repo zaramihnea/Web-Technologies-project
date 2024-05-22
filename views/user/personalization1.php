@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width initial-scale=1.0">
   <meta name="description" content="">
-  <link rel="stylesheet" href="../views/stylesheets/personalization.css">
-  <link rel="stylesheet" href="../views/responsive/personalization.css">
+  <link rel="stylesheet" href="../views/user/stylesheets/personalization.css">
+  <link rel="stylesheet" href="../views/user/responsive/personalization.css">
   <title>Personalize your account</title>
 </head>
 <body>
@@ -16,7 +16,8 @@
 
   <div class="preference-container">
     <p>Let us know you:</p>
-    <form action="culinary_controller.php?action=pref1" method="post">
+    <form action="culinary_controller.php" method="post">
+        <input type="hidden" name="action" value="pref1">
         <input type="text" name="email" placeholder="Email" required>
         <input type="text" name="firstName" placeholder="First name" required>
         <input type="text" name="lastName" placeholder="Last name" required>

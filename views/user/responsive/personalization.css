@@ -1,0 +1,34 @@
+@media screen and (max-width: 600px) {
+    .title-container {
+        margin-top: 10px;
+    }
+    .preference-container {
+        width: 80%;
+        padding: 15px;
+    }
+
+    .preference-container h2 {
+        font-size: 1.5em;
+    }
+
+    .preference-container input[type="text"],
+    .preference-container input[type="number"],
+    .preference-container input[type="submit"] 
+    select{
+        padding: 8px;
+        font-size: 0.9em;
+    }
+}
+
+
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+    .preference-container {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .preference-container {
+        width: 25%;
+    }
+}
