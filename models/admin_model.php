@@ -194,7 +194,66 @@ function deleteUser($userId) {
     closeConnection(null, $mysql);
 }
 
+function exportTableToCSV($table) {
+    $mysql = connectToDatabase();
+    $query = "SELECT * FROM $table";
 
+    $result = $mysql->query($query);
+
+    if ($result->num_rows > 0) {
+        $delimiter = ",";
+        $filename = $table . "_" . date('Y-m-d') . ".csv";
+
+        // Set headers to download file rather than displayed
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="' . $filename . '";');
+
+        // Create a file pointer connected to the output stream
+        $f = fopen('php://output', 'w');
+
+        // Set column headers
+        $fields = $result->fetch_fields();
+        $headers = [];
+        foreach ($fields as $field) {
+            $headers[] = $field->name;
+        }
+        fputcsv($f, $headers, $delimiter);
+
+        // Output each row of the data, format line as CSV and write to file pointer
+        while ($row = $result->fetch_assoc()) {
+            $lineData = [];
+            foreach ($headers as $header) {
+                $lineData[] = $row[$header];
+            }
+            fputcsv($f, $lineData, $delimiter);
+        }
+
+        // Close file pointer
+        fclose($f);
+    } else {
+        echo "No records found.";
+    }
+
+    $mysql->close();
+    exit;
+}
+
+function exportDBToCSV() {
+    exportTableToCSV('admins');
+    exportTableToCSV('Category');
+    exportTableToCSV('Incredient');
+    exportTableToCSV('NutritionFact');
+    exportTableToCSV('Preferences');
+    exportTableToCSV('Product');
+    exportTableToCSV('ProductCategories');
+    exportTableToCSV('ProductIncredients');
+    exportTableToCSV('ProductNutritionFacts');
+    exportTableToCSV('ProductStores');
+    exportTableToCSV('Store');
+    exportTableToCSV('users');
+    exportTableToCSV('user_preferences');
+    exportTableToCSV('user_shopping_list');
+}
 
 function closeConnection($stmt, $mysql) {
     if ($stmt && $stmt instanceof mysqli_stmt) {

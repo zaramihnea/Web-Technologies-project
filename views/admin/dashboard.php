@@ -78,5 +78,26 @@
         }
       ?>
     </table>
+    <form method="post" action="admin_controller.php">
+      <input type='hidden' name='action' value='exportToCSV'>
+      <label for="table">Select Table to Export:</label>
+      <select name="table" id="table">
+          <option value="admins">Admins</option>
+          <option value="Category">Category</option>
+          <option value="Incredient">Incredient</option>
+          <option value="NutritionFact">NutritionFact</option>
+          <option value="Preferences">Preferences</option>
+          <option value="Product">Product</option>
+          <option value="ProductCategories">ProductCategories</option>
+          <option value="ProductIncredients">ProductIncredients</option>
+          <option value="ProductNutritionFacts">ProductNutritionFacts</option>
+          <option value="ProductStores">ProductStores</option>
+          <option value="Store">Store</option>
+          <option value="users">Users</option>
+          <option value="user_preferences">User Preferences</option>
+          <option value="user_shopping_list">User Shopping List</option>
+      </select>
+      <button type="submit" name="export_csv">Export to CSV</button>
+    </form>
   </body>
 </html>
