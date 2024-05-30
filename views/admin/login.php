@@ -4,19 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <meta name="description" content="">
-    <link rel="stylesheet" type="text/css" href="../views/user/stylesheets/login.css">
-    <link rel="stylesheet" type="text/css" href="../views/user/responsive/login.css">
+    <link rel="stylesheet" type="text/css" href="../views/admin/stylesheets/login.css">
+    <link rel="stylesheet" type="text/css" href="../views/admin/responsive/login.css">
     <title>Login</title>
   </head>
   <body>
     <div class="title-container">
         <h1>Culinary Preferences Organizer - Admin dashboard</h1>
     </div>
-
-    
     <div class="login-container">
         <h2>Login</h2>
-        <form action="culinary_controller.php" method="post">
+        <form action="admin_controller.php" method="post">
             <input type="hidden" name="action" value="checkCred">
             <input type="text" name="user_name" placeholder="Username/email" required>
             <input type="password" name="password" placeholder="Password" required>
