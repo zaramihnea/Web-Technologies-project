@@ -40,22 +40,7 @@
         </div>
         <div class="content--gender">
             <label for="gender">Gender:</label>
-            <input type="text" id="gender" value="<?php 
-                switch ($user_data['gender']) {
-                        case 0:
-                            echo 'female';
-                            break;
-                        case 1:
-                            echo 'male';
-                            break;
-                        case 2:
-                            echo 'other';
-                            break;
-                        default:
-                            echo 'unspecified';
-                            break;
-                    } 
-            ?>" readonly>
+            <input type="text" id="gender" value="<?php echo htmlspecialchars($user_data['gender']); ?>" readonly>
         </div>
     </div>
     <div class="right-section">

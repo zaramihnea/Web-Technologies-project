@@ -34,17 +34,31 @@
                     Shopping list:
                 </h1>
                 <div class="content--box">
-                   <?php 
-                        if(isset($shoppingList)){
-                            foreach($shoppingList as $item){
-                                echo "<p class='shoppingList'>".$item['item_name']."</p>";
+                    <?php
+                        if (isset($successMessage)) {
+                            echo "<p class='successMessage'>" . htmlspecialchars($successMessage) . "</p>";
+                        }
+                        if (isset($errorMessage)) {
+                            echo "<p class='errorMessage'>" . htmlspecialchars($errorMessage) . "</p>";
+                        }
+                        if (isset($shoppingList)) {
+                            foreach ($shoppingList as $item) {
+                                echo '<div class="shoppingList--item">';
+                                echo '<span class="item-name">' . htmlspecialchars($item['item_name']) . '</span>';
+                                echo '<span class="item-quantity">' . htmlspecialchars($item['quantity']) . '</span>';
+                                echo '<form method="post" action="../controllers/culinary_controller.php" class="delete-form">';
+                                echo '<input type="hidden" name="action" value="deleteFromShoppingList">';
+                                echo '<input type="hidden" name="item" value="' . htmlspecialchars($item['item_name']) . '">';
+                                echo '<button type="submit" class="delete-button"><img src="../views/user/icons/delete.png" alt="Delete"></button>';
+                                echo '</form>';
+                                echo '</div>';
                             }
                         }
-                   ?>
+                    ?>
                 </div>
         </div>
     </section>
-    <form method="post">
+    <form action="culinary_controller.php" method="post">
         <input type="hidden" name="action" value="addToShoppingList">
         <input class="shoppingList" type="text" name="item" placeholder="Add one item to shopping list">
     </form>

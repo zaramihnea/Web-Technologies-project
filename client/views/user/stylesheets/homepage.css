@@ -52,7 +52,7 @@ h1 {
     border-radius: 50%;
 }
 
-.myAccount{
+.myAccount {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -118,3 +118,56 @@ h1 {
     box-sizing: border-box;
 }
 
+.shoppingList--item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.item-name {
+    flex: 1;
+}
+
+.item-quantity {
+    flex: 0;
+    padding-left: 10px;
+}
+
+.delete-form {
+    margin: 0;
+    padding: 0;
+}
+
+.delete-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.delete-button img {
+    width: 20px;
+    height: 20px;
+}
+
+.shoppingList-form {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.successMessage {
+    color: green;
+    font-size: 1em;
+    padding: 10px 0;
+}
+
+.errorMessage {
+    color: red;
+    font-size: 1em;
+    padding: 10px 0;
+}
