@@ -389,12 +389,6 @@ function deletePreference($preference_id)
     ];
 }
 
-function handleModifyingPref($oldPreferences, $newPreferences, $user_id)
-{
-    
-
-}
-
 //for account page
 function getUserInfo($id)
 {

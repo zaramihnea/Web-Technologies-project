@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^.*$ /Proiect/api/FoodsService/router.php [L,QSA]
+</IfModule>
