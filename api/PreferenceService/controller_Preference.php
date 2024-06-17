@@ -27,8 +27,8 @@ function addPreferenceService($id){
         http_response_code(500);
         echo json_encode(['error' => 'Failed to add preference']);
     }
-
 }
+
 
 function getPreferencesService($id){
     $preferences = getPreferences($id);

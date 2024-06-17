@@ -73,7 +73,7 @@ function addUser($username, $password, $retypepassword)
         return true;
     } else {
         closeConnection($stmt, $mysql);
-        return $hashedPassword;
+        return false;
     }
 }
 ?>

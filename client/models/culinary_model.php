@@ -133,7 +133,7 @@ function checkEmail($email)
     ];
 }
 
-//for first preferences
+//for signup details and first preferences
 function addDetails($username, $email, $firstName, $lastName, $age, $gender)
 {
     $url = "http://localhost/Proiect/api/DetailsService/addDetails/" . $username;
@@ -168,7 +168,7 @@ function addPreferences($id, $preferences)
     foreach ($preferences as $preference) {
         $url = "http://localhost/Proiect/api/PreferenceService/addPreference/" . $id;
         $dataToBeSent = [
-            "preference" => $preference,
+            "preference_id" => $preference,
         ];
         $jsonData = json_encode($dataToBeSent);
         $curl = curl_init($url);
