@@ -9,9 +9,8 @@
 </head>
 <body>
     <nav class="navbar">
-        <img id="logo" src="../views/user/icons/logo.jpeg" alt="Logo" >
+        <a  href="../controllers/culinary_controller.php?action=redirectHome"><img id="logo" src="../views/user/icons/logo.jpeg" alt="Logo" ></a>
         <ul class="navbar--buttons">
-            <li class="navbar--button"><a class= "button" href="../controllers/culinary_controller.php?action=redirectHome">Home</a></li>
             <li class="navbar--button"><a class= "button" href="../controllers/culinary_controller.php?action=redirectPrefs">Preferences</a></li>
             <li class="navbar--button"><a class= "button" href=" ../controllers/culinary_controller.php?action=redirectAcc"><img class="myAccount" src="../views/user/icons/account-circle.png" alt="Account icon"/></a></li>
         </ul>
@@ -27,7 +26,13 @@
                 <h1 class="content--title">
                     Products based on your preferences:
                 </h1>
-                <div class="content--box"></div>
+                <div class="content--box">
+                    <?php
+                        for ($i = 1; $i <= 20; $i++) {
+                            echo "<div class='content--box--inner'> </div>";
+                        }
+                    ?>
+                </div>
             </div>
             <div class="right">
                 <h1 class="content--title">

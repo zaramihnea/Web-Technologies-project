@@ -38,7 +38,7 @@ function signupService(){
         echo json_encode(['error' => 'Username already exists']);
     } else {
         http_response_code(500);
-        echo json_encode(['error' => 'Internal server error']);
+        echo json_encode(['error' => $control]);
     }    
 }
 ?>
