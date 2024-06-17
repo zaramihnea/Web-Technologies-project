@@ -10,7 +10,7 @@ function addPreferenceService($id){
         return;
     }
 
-    if (!isset($data['preference'])|| empty($data['preference'])) {
+    if (!isset($data['preference']) || empty($data['preference'])) {
         http_response_code(400);
         echo json_encode(['error' => 'Missing required fields']);
         return;

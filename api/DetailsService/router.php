@@ -10,6 +10,7 @@ function handlePostRequest($segments)
         $username = $segments[4];
         addDetailsService($username);
     } else {
+        header("Content-Type: application/json");
         header("HTTP/1.1 404 Not Found");
         die(json_encode(["error" => "Resursa nu a fost gasita"]));
     }
@@ -21,6 +22,7 @@ function handleGetRequest($segments)
         $id = $segments[4];
         getDetailsService($id);
     } else {
+        header("Content-Type: application/json");
         header("HTTP/1.1 404 Not Found");
         die(json_encode(["error" => "Resursa nu a fost gasita"]));
     }
@@ -32,6 +34,7 @@ function handleDeleteRequest($segments)
         $id = $segments[4];
         deleteDetailsService($id);
     } else {
+        header("Content-Type: application/json");
         header("HTTP/1.1 404 Not Found");
         die(json_encode(["error" => "Resursa nu a fost gasita"]));
     }
@@ -52,6 +55,7 @@ function routeRequest()
             handleDeleteRequest($segments);
             break;
         default:
+            header("Content-Type: application/json");
             header("HTTP/1.1 405 Method Not Allowed");
             die(json_encode(["error" => "Metoda nu este permisa"]));
     }
