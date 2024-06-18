@@ -1,22 +1,42 @@
 <?php
 include_once "db.php";
 
-function addPreference($id, $preference)
+function addPreference($user_id, $preference_nume)
 {
     $mysql = connectToDatabase();
-    
-    $sql = "
-        INSERT INTO user_preferences (user_id, preference_id)
-        SELECT ?, p.id
-        FROM preferences p
-        WHERE p.name = ?";
-        
+
+    $sql = "SELECT id FROM preferences WHERE nume = ?";
     $stmt = $mysql->prepare($sql);
     if (!$stmt) {
         $mysql->close();
         return false;
     }
-    $stmt->bind_param("is", $id, $preference);
+    $stmt->bind_param("s", $preference_nume);
+    $stmt->execute();
+    $stmt->bind_result($preference_id);
+    $stmt->fetch();
+    $stmt->close();
+
+    if (!$preference_id) {
+        $sql = "INSERT INTO preferences (nume) VALUES (?)";
+        $stmt = $mysql->prepare($sql);
+        if (!$stmt) {
+            $mysql->close();
+            return false;
+        }
+        $stmt->bind_param("s", $preference_nume);
+        $stmt->execute();
+        $preference_id = $stmt->insert_id;
+        $stmt->close();
+    }
+
+    $sql = "INSERT INTO user_preferences (user_id, preference_id) VALUES (?, ?)";
+    $stmt = $mysql->prepare($sql);
+    if (!$stmt) {
+        $mysql->close();
+        return false;
+    }
+    $stmt->bind_param("ii", $user_id, $preference_id);
     $result = $stmt->execute();
     
     if (!$result) {
@@ -33,22 +53,21 @@ function addPreference($id, $preference)
     return true;
 }
 
-function getPreferences($id){
+
+function getPreferences($user_id)
+{
     $mysql = connectToDatabase();
-    
-    $sql = "
-        SELECT p.name 
-        FROM user_preferences up 
-        JOIN preferences p ON up.preference_id = p.id 
-        WHERE up.user_id = ?";
-        
+    $sql = "SELECT p.name 
+            FROM user_preferences up 
+            JOIN preferences p ON up.preference_id = p.id 
+            WHERE up.user_id = ?";
     $stmt = $mysql->prepare($sql);
+
     if (!$stmt) {
         $mysql->close();
-        return false;
+        return "1";
     }
-    
-    $stmt->bind_param("i", $id);
+    $stmt->bind_param("i", $user_id);
     $result = $stmt->execute();
     if (!$result) {
         closeConnection($stmt, $mysql);
@@ -65,22 +84,17 @@ function getPreferences($id){
     return $preferences;
 }
 
-function deletePreference($preference, $user_id){
+
+function deletePreference($preference_id, $user_id)
+{
     $mysql = connectToDatabase();
-    
-    $sql = "
-        DELETE up
-        FROM user_preferences up
-        JOIN preferences p ON up.preference_id = p.id
-        WHERE p.name = ? AND up.user_id = ?";
-        
+    $sql = "DELETE FROM user_preferences WHERE preference_id = ? AND user_id = ?";
     $stmt = $mysql->prepare($sql);
     if (!$stmt) {
         $mysql->close();
         return false;
     }
-    
-    $stmt->bind_param("si", $preference, $user_id);
+    $stmt->bind_param("ii", $preference_id, $user_id);
     $result = $stmt->execute();
     if (!$result) {
         closeConnection($stmt, $mysql);
@@ -91,36 +105,25 @@ function deletePreference($preference, $user_id){
     return true;
 }
 
-function getPreferenceId($preference, $user_id) {
+
+function getPreferenceId($preference_nume, $user_id)
+{
     $mysql = connectToDatabase();
-    
-    $sql = "
-        SELECT up.preference_id
-        FROM user_preferences up
-        JOIN preferences p ON up.preference_id = p.id
-        WHERE p.name = ? AND up.user_id = ?";
-    
+    $sql = "SELECT id FROM preferences WHERE nume = ?";
     $stmt = $mysql->prepare($sql);
     if (!$stmt) {
         $mysql->close();
         return false;
     }
-    
-    $stmt->bind_param("si", $preference, $user_id);
+    $stmt->bind_param("s", $preference_nume);
     $result = $stmt->execute();
     if (!$result) {
         closeConnection($stmt, $mysql);
         return false;
     }
-    
     $stmt->bind_result($preference_id);
-    if (!$stmt->fetch()) {
-        closeConnection($stmt, $mysql);
-        return false;
-    }
-    
+    $stmt->fetch();
     closeConnection($stmt, $mysql);
     return $preference_id;
 }
-
 ?>

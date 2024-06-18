@@ -300,7 +300,6 @@ function addOneToQuantity($user_id, $item)
     closeConnection($stmt, $mysql);
 }
 
-//for preferences page
 function getUserPreferences($user_id)
 {
     $url = "http://localhost/Proiect/api/PreferenceService/getPreferences/" . $user_id;
@@ -308,13 +307,29 @@ function getUserPreferences($user_id)
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
     $response = curl_exec($curl);
+
+    if ($response === false) {
+        $error = curl_error($curl);
+        curl_close($curl);
+        die(json_encode(['error' => "CURL Error: $error"]));
+    }
+
     $responseCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     curl_close($curl);
 
+    if ($responseCode !== 200) {
+        die(json_encode(['error' => "HTTP Error: $responseCode", 'response' => $response]));
+    }
+
     $responseData = json_decode($response, true);
+
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        die(json_encode(['error' => 'Invalid JSON response']));
+    }
 
     return $responseData;
 }
+
 
 function addPreference($user_id, $preference)
 {
@@ -466,6 +481,24 @@ function resetPassword($oldpass, $newpass, $repeatnewpass)
     closeConnection($stmt, $mysql);
     return true;
 }
+
+function getUserFoodsService($user_id){
+    $preferences = implode(',', getUserPreferences($user_id));
+    
+    $url = "http://localhost/Proiect/api/FoodsService/getFoods?preferences=" . urlencode($preferences);
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    $responseData = json_decode($response, true);
+
+    return $responseData;
+}
+
 
 //database close connection
 function closeConnection($stmt, $mysql)

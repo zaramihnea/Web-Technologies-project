@@ -8,37 +8,36 @@
 </head>
 <body>
 <nav class="navbar">
-    <img id="logo" src="../views/user/icons/logo.jpeg" alt="Logo">
-    <ul class="navbar--buttons">
-        <li class="navbar--button"><a class="button" href="../controllers/culinary_controller.php?action=redirectHome">Home</a></li>
-        <li class="navbar--button"><a class="button" href="../controllers/culinary_controller.php?action=redirectPrefs">Preferences</a></li>
-        <li class="navbar--button"><a class="button" href="../controllers/culinary_controller.php?action=redirectAcc"><img class="myAccount" src="../views/user/icons/account-circle.png" alt="Account icon"/></a></li>
-    </ul>
-</nav>
-<section class="content">
-    <h2>View and edit your preferences:</h2>
-    <form id="preferencesForm" action="culinary_controller.php" method="post">
-        <input type="hidden" name="action" value="modifyPref">
-        <input type="hidden" id="preferencesToDelete" name="preferencesToDelete" value="">
-        <div class="favorite-foods" id="favoriteFoods">
-            <?php
-            if (isset($preferences) && is_array($preferences)) {
-                foreach ($preferences as $preference) {
-                    echo '<input type="checkbox" id="' . htmlspecialchars($preference) . '" name="preference[]" value="' . htmlspecialchars($preference) . '">';
-                    echo '<label for="' . htmlspecialchars($preference) . '">' . htmlspecialchars($preference) . '</label>';
+        <a  href="../controllers/culinary_controller.php?action=redirectHome"><img id="logo" src="../views/user/icons/logo.jpeg" alt="Logo" ></a>
+        <ul class="navbar--buttons">
+            <li class="navbar--button"><a class= "button" href="../controllers/culinary_controller.php?action=redirectPrefs">Preferences</a></li>
+            <li class="navbar--button"><a class= "button" href=" ../controllers/culinary_controller.php?action=redirectAcc"><img class="myAccount" src="../views/user/icons/account-circle.png" alt="Account icon"/></a></li>
+        </ul>
+    </nav>
+    <section class="content">
+        <h2>View and edit your preferences:</h2>
+        <form id="preferencesForm" action="culinary_controller.php" method="post">
+            <input type="hidden" name="action" value="modifyPref">
+            <input type="hidden" id="preferencesToDelete" name="preferencesToDelete" value="">
+            <div class="favorite-foods" id="favoriteFoods">
+                <?php
+                if (isset($preferences) && is_array($preferences)) {
+                    foreach ($preferences as $preference) {
+                        echo '<input type="checkbox" id="' . htmlspecialchars($preference) . '" name="preference[]" value="' . htmlspecialchars($preference) . '">';
+                        echo '<label for="' . htmlspecialchars($preference) . '">' . htmlspecialchars($preference) . '</label>';
+                    }
+                } else {
+                    echo 'No preferences found.';
                 }
-            } else {
-                echo 'No preferences found.';
-            }
-            ?> 
-        </div>
-        <p style="color:green"><?php if (isset($msg)) { echo $msg; } ?></p>
-        <div class="button-container">
-            <button type="button" id="deleteCircle">-</button>
-            <button type="submit" id="savePreferences">Save</button>
-            <button type="button" id="addCircle">+</button>
-        </div>
-    </form>
+                ?> 
+            </div>
+            <p style="color:green"><?php if (isset($msg)) { echo $msg; } ?></p>
+            <div class="button-container">
+                <button type="button" id="deleteCircle">-</button>
+                <button type="submit" id="savePreferences">Save</button>
+                <button type="button" id="addCircle">+</button>
+            </div>
+        </form>
 </section>
 
 <!-- The Modal -->

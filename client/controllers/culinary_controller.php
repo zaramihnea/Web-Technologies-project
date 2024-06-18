@@ -22,7 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         $username = getUsernameFromEmail($username);
                     }
                     $_SESSION["username"] = $username;
-                    $_SESSION["id"] = getID($username);
+                    $user_id = getID($username);
+                    $_SESSION["id"] = $user_id;
                     if (isset($_POST["rememberme"])) {
                         setcookie(
                             "rememberme",
@@ -30,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             time() + 60 * 60 * 24 * 1
                         );
                     }
+                    $suggestions = getUserFoodsService($user_id);
                     include "../views/user/homepage.php";
                 } else {
                     $errorMessage = $result['responseData']['error'] ?? "An error occurred!";
@@ -99,6 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 $control = addPreferences($id, $preferences);
                 if ($control['responseCode'] === 200) {
+                    $suggestions = getUserFoodsService($user_id);
                     include "../views/user/homepage.php";
                 } else {
                     $errorMessage3 = $control['responseData']['error'] ?? "An error occurred!";
@@ -125,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     addToShoppingList($user_id, $item, 1);
                     $shoppingList = getItemsFromShoppingList($user_id);
                 }
-
+                $suggestions = getUserFoodsService($user_id);
                 include "../views/user/homepage.php";
                 exit();
 
@@ -134,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $item = $_POST["item"];
                 $result = removeFromShoppingList($user_id, $item);
                 $shoppingList = getItemsFromShoppingList($user_id);
-
+                $suggestions = getUserFoodsService($user_id);
                 include "../views/user/homepage.php";
                 exit();
 
@@ -217,6 +220,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 );
                 if ($control) {
                     if (isset($_COOKIE["rememberme"])) {
+                        $suggestions = getUserFoodsService($user_id);
                         include "../views/user/homepage.php";
                         exit();
                     } else {
@@ -241,6 +245,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         exit();
                     }
                     if ($control) {
+                        $suggestions = getUserFoodsService($user_id);
                         include "../views/user/homepage.php";
                         exit();
                     }
@@ -267,6 +272,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             //redirect to homepage
             case "redirectHome":
                 $shoppingList = getItemsFromShoppingList($_SESSION["id"]);
+                $suggestions = getUserFoodsService($_SESSION["id"]);
                 include "../views/user/homepage.php";
                 exit();
             //redirect to signup page
@@ -276,6 +282,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             //redirect to login page (or homepage if rememberme cookie is set)
             case "login":
                 if (isset($_COOKIE["rememberme"])) {
+                    $shoppingList = getItemsFromShoppingList($_SESSION["id"]);
+                    $suggestions = getUserFoodsService($_SESSION["id"]);
                     include "../views/user/homepage.php";
                     exit();
                 } else {

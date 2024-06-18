@@ -33,17 +33,17 @@ function addPreferenceService($id){
 function getPreferencesService($id){
     $preferences = getPreferences($id);
 
-    if ($preferences) {
+    if ($preferences !== false) {
         http_response_code(200);
         echo json_encode($preferences);
     } else {
         http_response_code(500);
-        echo json_encode(['error' => 'Failed to get preferences']);
+        echo json_encode(['error' => "$preferences"]);
     }
 }
 
-function deletePreferenceService($id){
-    $result = deletePreference($id);
+function deletePreferenceService($user_id, $preference_id){
+    $result = deletePreference($preference_id, $user_id);
 
     if ($result) {
         http_response_code(200);
@@ -55,15 +55,14 @@ function deletePreferenceService($id){
 }
 
 function getPreferenceIdService($preference, $id){
-    $id = getPreferenceId($preference, $id);
+    $preference_id = getPreferenceId($preference, $id);
 
-    if ($id) {
+    if ($preference_id !== false) {
         http_response_code(200);
-        echo json_encode($id);
+        echo json_encode($preference_id);
     } else {
         http_response_code(500);
         echo json_encode(['error' => 'Failed to get preference id']);
     }
 }
-
 ?>
