@@ -12,7 +12,12 @@
         <a class="button" href="../controllers/culinary_controller.php?action=redirectHome">
             <img id="logo" src="../views/user/icons/logo.jpeg" alt="Logo">
         </a>
-        <ul class="navbar--buttons">
+        <div class="menu-icon" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <ul class="navbar--buttons" id="nav-menu">
             <li class="navbar--button"><a class="button" href="../controllers/culinary_controller.php?action=redirectPrefs">Preferences</a></li>
             <li class="navbar--button"><a class="button" href="../controllers/culinary_controller.php?action=redirectAcc">
                 <img class="myAccount" src="../views/user/icons/account-circle.png" alt="Account icon"/>
@@ -25,57 +30,55 @@
         </h1>
     </section>
     <section class="content">
-        <div class="split">
-            <div class="left">
-                <h1 class="content--title">
-                    Products based on your preferences:
-                </h1>
-                <div class="content--box">
-                    <?php foreach ($suggestions as $index => $suggestion): ?>
-                        <div class="content--box--inner">
-                            <img src="<?= htmlspecialchars($suggestion['image_url'] ?? '') ?>" alt="product image">
-                            <button class="overlay-button"
-                                data-name="<?= htmlspecialchars($suggestion['product_name'] ?? 'No name available') ?>"
-                                data-image="<?= htmlspecialchars($suggestion['image_url'] ?? '') ?>"
-                                data-keywords="<?= htmlspecialchars(json_encode($suggestion['_keywords'] ?? [])) ?>"
-                                data-categories="<?= htmlspecialchars(json_encode(explode(',', $suggestion['categories'] ?? ''))) ?>">Click for details</button>
-                        
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-            <div class="right">
-                <h1 class="content--title">
-                    Shopping list:
-                </h1>
-                <div class="content--box">
-                    <?php if (isset($successMessage)): ?>
-                        <p class="successMessage"><?= htmlspecialchars($successMessage) ?></p>
-                    <?php endif; ?>
-                    <?php if (isset($errorMessage)): ?>
-                        <p class="errorMessage"><?= htmlspecialchars($errorMessage) ?></p>
-                    <?php endif; ?>
-                    <?php if (isset($shoppingList)): ?>
-                        <?php foreach ($shoppingList as $item): ?>
-                            <div class="shoppingList--item">
-                                <span class="item-name"><?= htmlspecialchars($item['item_name']) ?></span>
-                                <span class="item-quantity"><?= htmlspecialchars($item['quantity']) ?></span>
-                                <form method="post" action="../controllers/culinary_controller.php" class="delete-form">
-                                    <input type="hidden" name="action" value="deleteFromShoppingList">
-                                    <input type="hidden" name="item" value="<?= htmlspecialchars($item['item_name']) ?>">
-                                    <button type="submit" class="delete-button"><img src="../views/user/icons/delete.png" alt="Delete"></button>
-                                </form>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </div>
+        <div class="left">
+            <h1 class="content--title">
+                Products based on your preferences:
+            </h1>
+            <div class="content--box">
+                <?php foreach ($suggestions as $index => $suggestion): ?>
+                    <div class="content--box--inner">
+                        <img src="<?= htmlspecialchars($suggestion['image_url'] ?? '') ?>" alt="product image">
+                        <button class="overlay-button"
+                            data-name="<?= htmlspecialchars($suggestion['product_name'] ?? 'No name available') ?>"
+                            data-image="<?= htmlspecialchars($suggestion['image_url'] ?? '') ?>"
+                            data-keywords="<?= htmlspecialchars(json_encode($suggestion['_keywords'] ?? [])) ?>"
+                            data-categories="<?= htmlspecialchars(json_encode(explode(',', $suggestion['categories'] ?? ''))) ?>">Click for details</button>
+                    
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
+        <div class="right">
+            <h1 class="content--title">
+                Shopping list:
+            </h1>
+            <div class="content--box">
+                <?php if (isset($successMessage)): ?>
+                    <p class="successMessage"><?= htmlspecialchars($successMessage) ?></p>
+                <?php endif; ?>
+                <?php if (isset($errorMessage)): ?>
+                    <p class="errorMessage"><?= htmlspecialchars($errorMessage) ?></p>
+                <?php endif; ?>
+                <?php if (isset($shoppingList)): ?>
+                    <?php foreach ($shoppingList as $item): ?>
+                        <div class="shoppingList--item">
+                            <span class="item-name"><?= htmlspecialchars($item['item_name']) ?></span>
+                            <span class="item-quantity"><?= htmlspecialchars($item['quantity']) ?></span>
+                            <form method="post" action="../controllers/culinary_controller.php" class="delete-form">
+                                <input type="hidden" name="action" value="deleteFromShoppingList">
+                                <input type="hidden" name="item" value="<?= htmlspecialchars($item['item_name']) ?>">
+                                <button type="submit" class="delete-button"><img src="../views/user/icons/delete.png" alt="Delete"></button>
+                            </form>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+        <form action="culinary_controller.php" method="post">
+            <input type="hidden" name="action" value="addToShoppingList">
+            <input class="shoppingList" type="text" name="item" placeholder="Add one item to shopping list">
+        </form>
     </section>
-    <form action="culinary_controller.php" method="post">
-        <input type="hidden" name="action" value="addToShoppingList">
-        <input class="shoppingList" type="text" name="item" placeholder="Add one item to shopping list">
-    </form>
 
     <div id="overlay" class="overlay-container">
         <div class="overlay-content">
@@ -93,6 +96,11 @@
     </div>
 
     <script>
+         function toggleMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const overlay = document.getElementById('overlay');
             const overlayImage = document.getElementById('overlay-image');

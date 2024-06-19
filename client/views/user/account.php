@@ -9,11 +9,19 @@
 </head>
 <body>
     <nav class="navbar">
-        <img id="logo" src="../views/user/icons/logo.jpeg" alt="Logo" >
-        <ul class="navbar--buttons">
-            <li class="navbar--button"><a class= "button" href="../controllers/culinary_controller.php?action=redirectHome">Home</a></li>
-            <li class="navbar--button"><a class= "button" href="../controllers/culinary_controller.php?action=redirectPrefs">Preferences</a></li>
-            <li class="navbar--button"><a class= "button" href=" ../controllers/culinary_controller.php?action=redirectAcc"><img class="myAccount" src="../views/user/icons/account-circle.png" alt="Account icon"/></a></li>
+        <a class="button" href="../controllers/culinary_controller.php?action=redirectHome">
+            <img id="logo" src="../views/user/icons/logo.jpeg" alt="Logo">
+        </a>
+        <div class="menu-icon" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <ul class="navbar--buttons" id="nav-menu">
+            <li class="navbar--button"><a class="button" href="../controllers/culinary_controller.php?action=redirectPrefs">Preferences</a></li>
+            <li class="navbar--button"><a class="button" href="../controllers/culinary_controller.php?action=redirectAcc">
+                <img class="myAccount" src="../views/user/icons/account-circle.png" alt="Account icon"/>
+            </a></li>
         </ul>
     </nav>
     <section class="content">
@@ -74,6 +82,11 @@
     </div>
 
     <script>
+        function toggleMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
         function openModal() {
             document.getElementById("deleteModal").style.display = "block";
         }
