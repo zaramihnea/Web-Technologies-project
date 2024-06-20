@@ -53,6 +53,31 @@ function addPreference($user_id, $preference_nume)
     return true;
 }
 
+function getAllPreferences()
+{
+    $mysql = connectToDatabase();
+    $sql = "SELECT nume FROM preferences";
+    $stmt = $mysql->prepare($sql);
+    if (!$stmt) {
+        $mysql->close();
+        return false;
+    }
+    $result = $stmt->execute();
+    if (!$result) {
+        closeConnection($stmt, $mysql);
+        return false;
+    }
+    
+    $stmt->bind_result($preference_name);
+    $preferences = [];
+    while ($stmt->fetch()) {
+        $preferences[] = $preference_name;
+    }
+    
+    closeConnection($stmt, $mysql);
+    return $preferences;
+}
+
 
 function getPreferences($user_id)
 {

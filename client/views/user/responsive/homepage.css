@@ -1,0 +1,124 @@
+@media (max-width: 575.98px) {
+    .navbar {
+        padding-inline: 0.5em; 
+    }
+
+    .button {
+        padding-left: 0.5em; 
+    }
+    
+    .split {
+        flex-direction: column-reverse;
+    }
+
+    .right {
+        flex: 1;
+        margin: 0 5px;
+        overflow-y: auto;
+    }
+
+    h1 {
+        font-size: 1.2em;
+    }
+
+    .shoppingList {
+        display: none;
+    }
+    
+    /* Show the button to open the modal */
+    .open-shopping-list {
+        display: block;
+        position: fixed;
+        bottom: 70px; /* Adjust based on the input field height */
+        left: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: darkorange;
+        color: white;
+        font-size: 30px;
+        text-align: center;
+        line-height: 50px;
+        border: none;
+        cursor: pointer;
+        z-index: 1000;
+    }
+    
+    /* Modal styles */
+    .shopping-list-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    
+    .shopping-list-modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        width: 80%;
+        max-width: 600px;
+        text-align: center;
+        position: relative;
+    }
+    
+    .shopping-list-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .navbar {
+        padding-inline: 1em;
+    }
+
+    .split {
+        flex-direction: column-reverse;
+    }
+
+    .right {
+        flex: 1;
+        margin: 0 5px;
+        overflow-y: auto;
+    }
+
+    .button {
+        padding-left: 1em;
+    }
+
+    h1 {
+        font-size: 1.3em;
+    }
+    .shoppingList {
+        display: block;
+    }
+    
+    .open-shopping-list,
+    .shopping-list-modal {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .navbar {
+        padding-inline: 2em;
+    }
+
+    .button {
+        padding-left: 2em;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+}

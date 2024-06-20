@@ -80,6 +80,35 @@
         </form>
     </section>
 
+    <button id="open-shopping-list" class="open-shopping-list">+</button>
+    
+    <div id="shopping-list-modal" class="shopping-list-modal">
+        <div class="shopping-list-modal-content">
+            <span class="shopping-list-close">&times;</span>
+            <div class="content--box">
+                <?php if (isset($successMessage)): ?>
+                    <p class="successMessage"><?= htmlspecialchars($successMessage) ?></p>
+                <?php endif; ?>
+                <?php if (isset($errorMessage)): ?>
+                    <p class="errorMessage"><?= htmlspecialchars($errorMessage) ?></p>
+                <?php endif; ?>
+                <?php if (isset($shoppingList)): ?>
+                    <?php foreach ($shoppingList as $item): ?>
+                        <div class="shoppingList--item">
+                            <span class="item-name"><?= htmlspecialchars($item['item_name']) ?></span>
+                            <span class="item-quantity"><?= htmlspecialchars($item['quantity']) ?></span>
+                            <form method="post" action="../controllers/culinary_controller.php" class="delete-form">
+                                <input type="hidden" name="action" value="deleteFromShoppingList">
+                                <input type="hidden" name="item" value="<?= htmlspecialchars($item['item_name']) ?>">
+                                <button type="submit" class="delete-button"><img src="../views/user/icons/delete.png" alt="Delete"></button>
+                            </form>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
     <div id="overlay" class="overlay-container">
         <div class="overlay-content">
             <span class="close-button">&times;</span>
@@ -109,6 +138,9 @@
             const overlayCategories = document.getElementById('overlay-categories');
             const itemNameInput = document.getElementById('item-name-input');
             const closeButton = document.querySelector('.close-button');
+            const openShoppingListButton = document.getElementById('open-shopping-list');
+            const shoppingListModal = document.getElementById('shopping-list-modal');
+            const shoppingListCloseButton = document.querySelector('.shopping-list-close');
 
             document.querySelectorAll('.overlay-button').forEach(button => {
                 button.addEventListener('click', () => {
@@ -145,6 +177,20 @@
             window.addEventListener('click', (event) => {
                 if (event.target === overlay) {
                     overlay.style.display = 'none';
+                }
+            });
+
+            openShoppingListButton.addEventListener('click', () => {
+                shoppingListModal.style.display = 'flex';
+            });
+
+            shoppingListCloseButton.addEventListener('click', () => {
+                shoppingListModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target === shoppingListModal) {
+                    shoppingListModal.style.display = 'none';
                 }
             });
         });

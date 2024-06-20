@@ -330,32 +330,6 @@ function getUserPreferences($user_id)
     return $responseData;
 }
 
-
-function addPreference($user_id, $preference)
-{
-    $url = "http://localhost/Proiect/api/PreferenceService/addPreference/" . $user_id;
-    $dataToBeSent = [
-        "preference" => $preference,
-    ];
-    $jsonData = json_encode($dataToBeSent);
-    $curl = curl_init($url);
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonData);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-
-    $response = curl_exec($curl);
-    $responseCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    curl_close($curl);
-
-    $responseData = json_decode($response, true);
-
-    return [
-        'responseCode' => $responseCode,
-        'responseData' => $responseData,
-    ];
-}
-
 function getPrefID($preference, $user_id)
 {
     $preference = urlencode($preference);
@@ -384,8 +358,60 @@ function getPrefID($preference, $user_id)
     }
 }
 
-function deletePreference($preference_id)
-{
+function getAllPreferences() {
+    $url = "http://localhost/Proiect/api/PreferenceService/getAllPreferences";
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "GET");
+    $response = curl_exec($curl);
+
+    if ($response === false) {
+        $error = curl_error($curl);
+        curl_close($curl);
+        die(json_encode(['error' => "CURL Error: $error"]));
+    }
+
+    $responseCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+
+    if ($responseCode !== 200) {
+        die(json_encode(['error' => "HTTP Error: $responseCode", 'response' => $response]));
+    }
+
+    $responseData = json_decode($response, true);
+
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        die(json_encode(['error' => 'Invalid JSON response']));
+    }
+
+    return $responseData;
+}
+
+function addPreference($user_id, $preference) {
+    $url = "http://localhost/Proiect/api/PreferenceService/addPreference/" . $user_id;
+    $dataToBeSent = [
+        "preference" => $preference,
+    ];
+    $jsonData = json_encode($dataToBeSent);
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonData);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+
+    $response = curl_exec($curl);
+    $responseCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+
+    $responseData = json_decode($response, true);
+
+    return [
+        'responseCode' => $responseCode,
+        'responseData' => $responseData,
+    ];
+}
+
+function deletePreference($preference_id) {
     $url = "http://localhost/Proiect/api/PreferenceService/deletePreference/" . $preference_id;
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -403,6 +429,8 @@ function deletePreference($preference_id)
         'responseData' => $responseData,
     ];
 }
+
+
 
 //for account page
 function getUserInfo($id)

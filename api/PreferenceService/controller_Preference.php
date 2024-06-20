@@ -65,4 +65,16 @@ function getPreferenceIdService($preference, $id){
         echo json_encode(['error' => 'Failed to get preference id']);
     }
 }
+
+function getAllPreferencesService(){
+    $preferences = getAllPreferences();
+
+    if ($preferences !== false) {
+        http_response_code(200);
+        echo json_encode($preferences);
+    } else {
+        http_response_code(500);
+        echo json_encode(['error' => 'Failed to get preferences']);
+    }
+}
 ?>

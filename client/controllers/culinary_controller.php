@@ -38,7 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     include "../views/user/login.php";
                 }
                 exit();
-                break;
 
             //signup page
             case "addCred":
@@ -56,7 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     include "../views/user/signup.php";
                 }
                 exit();
-                break;
 
             //user details page(email, first name, last name, age, gender set)
             case "pref1":
@@ -69,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 $control1 = checkEmail($email);
 
-                if($control1['responseData']['exists'] === true){
+                if ($control1['responseData']['exists'] === true) {
                     $errorMessage3 = "Email already exists!";
                     include "../views/user/signup_details.php";
                     exit();
@@ -83,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $age,
                     $gender
                 );
-                
+
                 if ($control['responseCode'] === 200) {
                     include "../views/user/signup_preferences.html";
                 } else {
@@ -91,7 +89,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     include "../views/user/signup_details.php";
                 }
                 exit();
-                break;
 
             //"first preferences" page(add to database table user_preferences from a selection of checkboxes)
             case "pref2":
@@ -108,7 +105,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     include "../views/user/signup_preferences.html";
                 }
                 exit();
-                break;
 
             //homepage actions
             case "addToShoppingList":
@@ -164,33 +160,39 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $preferences = getUserPreferences($user_id);
                 include "../views/user/preferinte.php";
                 exit();
-                break;
-            
-                case "modifyPref":
-                    $preferencesToDelete = isset($_POST['preferencesToDelete']) ? explode(',', $_POST['preferencesToDelete']) : [];
-                    $newPreferences = isset($_POST['preference']) && is_array($_POST['preference']) ? $_POST['preference'] : [];
-                
-                    $user_id = $_SESSION["id"];
-                    $oldPreferences = getUserPreferences($user_id);
-                    $oldPreferencesArray = array_column($oldPreferences, 'preference');
-                    $preferencesToRemove = array_intersect($oldPreferencesArray, $preferencesToDelete);
-                    foreach ($preferencesToRemove as $preference) {
-                        $preferenceData = getPrefID($preference, $user_id);
-                        if ($preferenceData && isset($preferenceData['responseCode']) && $preferenceData['responseCode'] === 200) {
-                            $deleteResponse = deletePreference($preferenceData['id']);
-                            if ($deleteResponse['responseCode'] !== 200) {
-                                echo "Failed to delete preference: " . htmlspecialchars($preferenceData['id']);
-                            }
-                        } else {
-                            echo "Preference ID not found for: " . htmlspecialchars($preference);
-                            error_log("Preference ID not found for: " . htmlspecialchars($preference) . " with response: " . print_r($preferenceData, true));
+
+            // Handle deleting preferences
+            case "modifyPref":
+                $preferencesToDelete = isset($_POST['preferencesToDelete']) ? explode(',', $_POST['preferencesToDelete']) : [];
+                $user_id = $_SESSION["id"];
+                $oldPreferences = getUserPreferences($user_id);
+                $oldPreferencesArray = array_column($oldPreferences, 'preference');
+                $preferencesToRemove = array_intersect($oldPreferencesArray, $preferencesToDelete);
+                foreach ($preferencesToRemove as $preference) {
+                    $preferenceData = getPrefID($preference, $user_id);
+                    if ($preferenceData && isset($preferenceData['responseCode']) && $preferenceData['responseCode'] === 200) {
+                        $deleteResponse = deletePreference($preferenceData['id']);
+                        if ($deleteResponse['responseCode'] !== 200) {
+                            echo "Failed to delete preference: " . htmlspecialchars($preferenceData['id']);
                         }
+                    } else {
+                        echo "Preference ID not found for: " . htmlspecialchars($preference);
+                        error_log("Preference ID not found for: " . htmlspecialchars($preference) . " with response: " . print_r($preferenceData, true));
                     }
-                    $preferences = getUserPreferences($user_id);
-                    $msg = "Preferences updated successfully!";
-                    include "../views/user/preferinte.php";
-                    exit();
-                    break;
+                }
+                $preferences = getUserPreferences($user_id);
+                $msg = "Preferences updated successfully!";
+                include "../views/user/preferinte.php";
+                exit();
+
+            case "getAvailablePreferences":
+                $user_id = $_SESSION["id"];
+                $userPreferences = getUserPreferences($user_id);
+                $allPreferences = getAllPreferences();
+                $availablePreferences = array_diff($allPreferences, array_column($userPreferences, 'preference'));
+                echo json_encode($availablePreferences);
+                exit();
+
 
             //profile page
             case "deleteAcc":

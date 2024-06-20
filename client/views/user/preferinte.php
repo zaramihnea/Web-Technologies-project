@@ -8,45 +8,36 @@
 </head>
 <body>
 <nav class="navbar">
-        <a class="button" href="../controllers/culinary_controller.php?action=redirectHome">
-            <img id="logo" src="../views/user/icons/logo.jpeg" alt="Logo">
-        </a>
-        <div class="menu-icon" onclick="toggleMenu()">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
-        <ul class="navbar--buttons" id="nav-menu">
-            <li class="navbar--button"><a class="button" href="../controllers/culinary_controller.php?action=redirectPrefs">Preferences</a></li>
-            <li class="navbar--button"><a class="button" href="../controllers/culinary_controller.php?action=redirectAcc">
-                <img class="myAccount" src="../views/user/icons/account-circle.png" alt="Account icon"/>
-            </a></li>
-        </ul>
-    </nav>
-    <section class="content">
-        <h2>View and edit your preferences:</h2>
-        <form id="preferencesForm" action="culinary_controller.php" method="post">
-            <input type="hidden" name="action" value="modifyPref">
-            <input type="hidden" id="preferencesToDelete" name="preferencesToDelete" value="">
-            <div class="favorite-foods" id="favoriteFoods">
-                <?php
-                if (isset($preferences) && is_array($preferences)) {
-                    foreach ($preferences as $preference) {
-                        echo '<input type="checkbox" id="' . htmlspecialchars($preference) . '" name="preference[]" value="' . htmlspecialchars($preference) . '">';
-                        echo '<label for="' . htmlspecialchars($preference) . '">' . htmlspecialchars($preference) . '</label>';
-                    }
-                } else {
-                    echo 'No preferences found.';
+    <a href="../controllers/culinary_controller.php?action=redirectHome"><img id="logo" src="../views/user/icons/logo.jpeg" alt="Logo"></a>
+    <ul class="navbar--buttons">
+        <li class="navbar--button"><a class="button" href="../controllers/culinary_controller.php?action=redirectPrefs">Preferences</a></li>
+        <li class="navbar--button"><a class="button" href="../controllers/culinary_controller.php?action=redirectAcc"><img class="myAccount" src="../views/user/icons/account-circle.png" alt="Account icon"/></a></li>
+    </ul>
+</nav>
+<section class="content">
+    <h2>View and edit your preferences:</h2>
+    <form id="preferencesForm" action="culinary_controller.php" method="post">
+        <input type="hidden" name="action" value="modifyPref">
+        <input type="hidden" id="preferencesToDelete" name="preferencesToDelete" value="">
+        <div class="favorite-foods" id="favoriteFoods">
+            <?php
+            if (isset($preferences) && is_array($preferences)) {
+                foreach ($preferences as $preference) {
+                    echo '<input type="checkbox" id="' . htmlspecialchars($preference) . '" name="preference[]" value="' . htmlspecialchars($preference) . '">';
+                    echo '<label for="' . htmlspecialchars($preference) . '">' . htmlspecialchars($preference) . '</label>';
                 }
-                ?> 
-            </div>
-            <p style="color:green"><?php if (isset($msg)) { echo $msg; } ?></p>
-            <div class="button-container">
-                <button type="button" id="deleteCircle">-</button>
-                <button type="submit" id="savePreferences">Save</button>
-                <button type="button" id="addCircle">+</button>
-            </div>
-        </form>
+            } else {
+                echo 'No preferences found.';
+            }
+            ?> 
+        </div>
+        <p style="color:green"><?php if (isset($msg)) { echo $msg; } ?></p>
+        <div class="button-container">
+            <button type="button" id="deleteCircle" class="circle-button">-</button>
+            <button type="submit" id="savePreferences" class="circle-button">Save</button>
+            <button type="button" id="addCircle" class="circle-button">+</button>
+        </div>
+    </form>
 </section>
 
 <!-- The Modal -->
@@ -57,39 +48,24 @@
         <form id="addPreferenceForm" action="culinary_controller.php" method="post">
             <input type="hidden" name="action" value="addPref">
             <label for="newPreference">New Preference:</label>
-            <input type="text" id="newPreference" name="newPreference" required>
-            <button type="submit">Add</button>
+            <select id="newPreference" name="newPreference" required>
+            </select>
+            <button type="submit" class="circle-button">Add</button>
         </form>
     </div>
 </div>
 
 <script>
-    function toggleMenu() {
-            const navMenu = document.getElementById('nav-menu');
-            navMenu.classList.toggle('active');
-        }
-
-
-    // Get the modal
     var modal = document.getElementById("myModal");
-
-    // Get the button that opens the modal
     var btn = document.getElementById("addCircle");
-
-    // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal
     btn.onclick = function() {
+        fetchAvailablePreferences();
         modal.style.display = "block";
     }
-
-    // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = "none";
     }
-
-    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
@@ -110,6 +86,22 @@
             label.remove();
         });
     });
+
+    function fetchAvailablePreferences() {
+        fetch('controller.php?action=getAvailablePreferences')
+            .then(response => response.json())
+            .then(data => {
+                const newPreferenceSelect = document.getElementById('newPreference');
+                newPreferenceSelect.innerHTML = '';
+                data.forEach(preference => {
+                    const option = document.createElement('option');
+                    option.value = preference;
+                    option.textContent = preference;
+                    newPreferenceSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching available preferences:', error));
+    }
 </script>
 </body>
 </html>

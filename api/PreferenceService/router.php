@@ -25,6 +25,9 @@ function handleGetRequest($segments)
         $id = $segments[4];
         $preference = $segments[5];
         getPreferenceIdService($preference, $id);
+    } else 
+    if (count($segments) === 4 && $segments[3] === "getAllPreferences") {
+        getAllPreferencesService();
     } else {
         header("HTTP/1.1 404 Not Found");
         die(json_encode(["error" => "Resursa nu a fost gasita"]));
