@@ -236,7 +236,6 @@ function getItemsFromShoppingList($user_id)
     $stmt = $mysql->prepare($sql);
 
     if (!$stmt) {
-        logError("Prepare failed: " . $mysql->error);
         $mysql->close();
         return [];
     }
@@ -425,6 +424,23 @@ function deletePreference($preference_id) {
         'responseCode' => $responseCode,
         'responseData' => $responseData,
     ];
+}
+
+function deletePreferences($user_id, $preferences) {
+    $success = true;
+    foreach ($preferences as $preference) {
+        $prefIdData = getPrefID($preference, $user_id);
+        if ($prefIdData['responseCode'] === 200) {
+            $prefId = $prefIdData['id'];
+            $control = deletePreference($prefId);
+            if ($control['responseCode'] !== 200) {
+                $success = false;
+            }
+        } else {
+            $success = false;
+        }
+    }
+    return $success;
 }
 
 
