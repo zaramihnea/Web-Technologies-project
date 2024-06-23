@@ -103,10 +103,7 @@ function getUsernameFromEmail($email)
 
     $responseData = json_decode($response, true);
 
-    return [
-        'responseCode' => $responseCode,
-        'responseData' => $responseData,
-    ];
+       return $responseData["username"];
 }
 
 function checkEmail($email)
@@ -168,7 +165,7 @@ function addPreferences($id, $preferences)
     foreach ($preferences as $preference) {
         $url = "http://localhost/Proiect/api/PreferenceService/addPreference/" . $id;
         $dataToBeSent = [
-            "preference_id" => $preference,
+            "preference" => $preference,
         ];
         $jsonData = json_encode($dataToBeSent);
         $curl = curl_init($url);

@@ -80,31 +80,33 @@
         </form>
     </section>
 
-    <button id="open-shopping-list" class="open-shopping-list">+</button>
-    
-    <div id="shopping-list-modal" class="shopping-list-modal">
-        <div class="shopping-list-modal-content">
-            <span class="shopping-list-close">&times;</span>
-            <div class="content--box">
-                <?php if (isset($successMessage)): ?>
-                    <p class="successMessage"><?= htmlspecialchars($successMessage) ?></p>
-                <?php endif; ?>
-                <?php if (isset($errorMessage)): ?>
-                    <p class="errorMessage"><?= htmlspecialchars($errorMessage) ?></p>
-                <?php endif; ?>
-                <?php if (isset($shoppingList)): ?>
-                    <?php foreach ($shoppingList as $item): ?>
-                        <div class="shoppingList--item">
-                            <span class="item-name"><?= htmlspecialchars($item['item_name']) ?></span>
-                            <span class="item-quantity"><?= htmlspecialchars($item['quantity']) ?></span>
-                            <form method="post" action="../controllers/culinary_controller.php" class="delete-form">
-                                <input type="hidden" name="action" value="deleteFromShoppingList">
-                                <input type="hidden" name="item" value="<?= htmlspecialchars($item['item_name']) ?>">
-                                <button type="submit" class="delete-button"><img src="../views/user/icons/delete.png" alt="Delete"></button>
-                            </form>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+    <div class="mobile-only">
+        <button id="open-shopping-list" class="open-shopping-list">+</button>
+        
+        <div id="shopping-list-modal" class="shopping-list-modal">
+            <div class="shopping-list-modal-content">
+                <span class="shopping-list-close">&times;</span>
+                <div class="content--box">
+                    <?php if (isset($successMessage)): ?>
+                        <p class="successMessage"><?= htmlspecialchars($successMessage) ?></p>
+                    <?php endif; ?>
+                    <?php if (isset($errorMessage)): ?>
+                        <p class="errorMessage"><?= htmlspecialchars($errorMessage) ?></p>
+                    <?php endif; ?>
+                    <?php if (isset($shoppingList)): ?>
+                        <?php foreach ($shoppingList as $item): ?>
+                            <div class="shoppingList--item">
+                                <span class="item-name"><?= htmlspecialchars($item['item_name']) ?></span>
+                                <span class="item-quantity"><?= htmlspecialchars($item['quantity']) ?></span>
+                                <form method="post" action="../controllers/culinary_controller.php" class="delete-form">
+                                    <input type="hidden" name="action" value="deleteFromShoppingList">
+                                    <input type="hidden" name="item" value="<?= htmlspecialchars($item['item_name']) ?>">
+                                    <button type="submit" class="delete-button"><img src="../views/user/icons/delete.png" alt="Delete"></button>
+                                </form>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </div>

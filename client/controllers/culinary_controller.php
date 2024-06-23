@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         );
                     }
                     $suggestions = getUserFoodsService($user_id);
+                    $shoppingList = getItemsFromShoppingList($user_id);
                     include "../views/user/homepage.php";
                 } else {
                     $errorMessage = $result['responseData']['error'] ?? "An error occurred!";
@@ -98,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 $control = addPreferences($id, $preferences);
                 if ($control['responseCode'] === 200) {
-                    $suggestions = getUserFoodsService($user_id);
+                    $suggestions = getUserFoodsService($id);
                     include "../views/user/homepage.php";
                 } else {
                     $errorMessage3 = $control['responseData']['error'] ?? "An error occurred!";

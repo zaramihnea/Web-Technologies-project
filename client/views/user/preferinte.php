@@ -34,7 +34,6 @@
         <p style="color:green"><?php if (isset($msg)) { echo $msg; } ?></p>
         <div class="button-container">
             <button type="button" id="deleteCircle" class="circle-button">-</button>
-            <button type="submit" id="savePreferences" class="circle-button">Save</button>
             <button type="button" id="addCircle" class="circle-button">+</button>
         </div>
     </form>

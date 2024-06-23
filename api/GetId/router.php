@@ -11,7 +11,7 @@ function handleGetRequest($segments)
         getIdService($username);
     } else {
         header("HTTP/1.1 404 Not Found");
-        die(json_encode(["error" => "Resursa nu a fost gasita"]));
+        die(json_encode(["error" => "Resursa nu a". $segments[3] ." fost gasita"]));
     }
 }
 

@@ -5,7 +5,7 @@ function addPreference($user_id, $preference_nume)
 {
     $mysql = connectToDatabase();
 
-    $sql = "SELECT id FROM preferences WHERE nume = ?";
+    $sql = "SELECT id FROM Preferences WHERE name = ?";
     $stmt = $mysql->prepare($sql);
     if (!$stmt) {
         $mysql->close();
@@ -18,7 +18,7 @@ function addPreference($user_id, $preference_nume)
     $stmt->close();
 
     if (!$preference_id) {
-        $sql = "INSERT INTO preferences (nume) VALUES (?)";
+        $sql = "INSERT INTO Preferences (name) VALUES (?)";
         $stmt = $mysql->prepare($sql);
         if (!$stmt) {
             $mysql->close();
@@ -56,7 +56,7 @@ function addPreference($user_id, $preference_nume)
 function getAllPreferences()
 {
     $mysql = connectToDatabase();
-    $sql = "SELECT nume FROM preferences";
+    $sql = "SELECT name FROM Preferences";
     $stmt = $mysql->prepare($sql);
     if (!$stmt) {
         $mysql->close();
@@ -84,7 +84,7 @@ function getPreferences($user_id)
     $mysql = connectToDatabase();
     $sql = "SELECT p.name 
             FROM user_preferences up 
-            JOIN preferences p ON up.preference_id = p.id 
+            JOIN Preferences p ON up.preference_id = p.id 
             WHERE up.user_id = ?";
     $stmt = $mysql->prepare($sql);
 
@@ -134,7 +134,7 @@ function deletePreference($preference_id, $user_id)
 function getPreferenceId($preference_nume, $user_id)
 {
     $mysql = connectToDatabase();
-    $sql = "SELECT id FROM preferences WHERE nume = ?";
+    $sql = "SELECT id FROM Preferences WHERE name = ?";
     $stmt = $mysql->prepare($sql);
     if (!$stmt) {
         $mysql->close();
