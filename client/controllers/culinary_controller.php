@@ -138,61 +138,36 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 exit();
 
             //Preferences managing page
-            case "addPref":
-                if (isset($_POST['newPreference'])) {
-                    $preference = trim($_POST['newPreference']);
-                    $user_id = $_SESSION["id"];
-                    $oldPreferences = getUserPreferences($user_id);
-                    $oldPreferencesArray = array_column($oldPreferences, 'preference');
-                    if (in_array($preference, $oldPreferencesArray)) {
-                        $msg = 'Preference already exists.';
-                    } else {
-                        $addResponse = addPreference($user_id, $preference);
-                        if ($addResponse['responseCode'] === 201) {
-                            $msg = 'Preference added successfully!';
-                        } else {
-                            $msg = $addResponse['responseData']['error'] ?? 'Failed to add preference.';
-                        }
-                    }
+            case "deletePreferences":
+                $preferences = $_POST["preference"];
+                $user_id = $_SESSION["id"];
+                $control = deletePreferences($user_id, $preferences);
+                if ($control) {
+                    $preferences = getUserPreferences($user_id);
+                    $msg = "Preferences deleted successfully!";
+                    include "../views/user/preferinte.php";
+                    exit();
                 } else {
-                    $msg = 'No preference provided.';
+                    $preferences = getUserPreferences($user_id);
+                    $msg = "An error occurred!";
+                    include "../views/user/preferinte.php";
+                    exit();
                 }
-                $preferences = getUserPreferences($user_id);
-                include "../views/user/preferinte.php";
-                exit();
 
-            // Handle deleting preferences
-            case "modifyPref":
-                $preferencesToDelete = isset($_POST['preferencesToDelete']) ? explode(',', $_POST['preferencesToDelete']) : [];
+            case "addPreference":
+                $newPreference = $_POST["newPreference"];
                 $user_id = $_SESSION["id"];
-                $oldPreferences = getUserPreferences($user_id);
-                $oldPreferencesArray = array_column($oldPreferences, 'preference');
-                $preferencesToRemove = array_intersect($oldPreferencesArray, $preferencesToDelete);
-                foreach ($preferencesToRemove as $preference) {
-                    $preferenceData = getPrefID($preference, $user_id);
-                    if ($preferenceData && isset($preferenceData['responseCode']) && $preferenceData['responseCode'] === 200) {
-                        $deleteResponse = deletePreference($preferenceData['id']);
-                        if ($deleteResponse['responseCode'] !== 200) {
-                            echo "Failed to delete preference: " . htmlspecialchars($preferenceData['id']);
-                        }
-                    } else {
-                        echo "Preference ID not found for: " . htmlspecialchars($preference);
-                        error_log("Preference ID not found for: " . htmlspecialchars($preference) . " with response: " . print_r($preferenceData, true));
-                    }
+                $control = addPreference($user_id, $newPreference);
+                if ($control) {
+                    $preferences = getUserPreferences($user_id);
+                    include "../views/user/preferinte.php";
+                    exit();
+                } else {
+                    $preferences = getUserPreferences($user_id);
+                    $msg = "An error occurred!";
+                    include "../views/user/preferinte.php";
+                    exit();
                 }
-                $preferences = getUserPreferences($user_id);
-                $msg = "Preferences updated successfully!";
-                include "../views/user/preferinte.php";
-                exit();
-
-            case "getAvailablePreferences":
-                $user_id = $_SESSION["id"];
-                $userPreferences = getUserPreferences($user_id);
-                $allPreferences = getAllPreferences();
-                $availablePreferences = array_diff($allPreferences, array_column($userPreferences, 'preference'));
-                echo json_encode($availablePreferences);
-                exit();
-
 
             //profile page
             case "deleteAcc":
