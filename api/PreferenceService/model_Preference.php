@@ -110,45 +110,60 @@ function getPreferences($user_id)
 }
 
 
-function deletePreference($preference_id)
-{
+function deletePreference($preference_id) {
     $mysql = connectToDatabase();
-    $sql = "DELETE FROM user_preferences WHERE id";
+    $sql = "DELETE FROM user_preferences WHERE id = ?";
     $stmt = $mysql->prepare($sql);
+
     if (!$stmt) {
-        $mysql->close();
+        closeConnection(null, $mysql);
         return false;
     }
-    $stmt->bind_param("ii", $preference_id);
+
+    $stmt->bind_param("i", $preference_id);
     $result = $stmt->execute();
+
     if (!$result) {
         closeConnection($stmt, $mysql);
         return false;
     }
-    
+
     closeConnection($stmt, $mysql);
     return true;
 }
 
 
-function getPreferenceId($preference_nume, $user_id)
-{
+
+function getPreferenceId($preferenceName, $userId) {
     $mysql = connectToDatabase();
-    $sql = "SELECT id FROM Preferences WHERE name = ?";
-    $stmt = $mysql->prepare($sql);
+    
+    $query = "
+        SELECT up.id AS user_preference_id
+        FROM user_preferences up
+        JOIN preferences p ON up.preference_id = p.id
+        WHERE p.name = ? AND up.user_id = ?";
+    
+    $stmt = $mysql->prepare($query);
     if (!$stmt) {
-        $mysql->close();
+        echo "Failed to prepare statement: " . $mysql->error;
+        closeConnection(null, $mysql);
         return false;
     }
-    $stmt->bind_param("s", $preference_nume);
-    $result = $stmt->execute();
-    if (!$result) {
+    
+    $stmt->bind_param("si", $preferenceName, $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows === 0) {
+        echo "No user preference found with user ID: $userId and preference name: $preferenceName";
         closeConnection($stmt, $mysql);
         return false;
     }
-    $stmt->bind_result($preference_id);
-    $stmt->fetch();
+
+    $row = $result->fetch_assoc();
+    $userPreferenceId = $row['user_preference_id'];
+    
     closeConnection($stmt, $mysql);
-    return $preference_id;
+    return $userPreferenceId;
 }
 ?>

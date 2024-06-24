@@ -24,5 +24,8 @@
             <input type="submit" value="Login">
         </form>
     </div>
+    <div class="admin-button">
+      <button onclick="window.location.href='culinary_controller.php'">User Access</button>
+    </div>
   </body>
 </html>

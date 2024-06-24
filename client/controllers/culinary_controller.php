@@ -114,6 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 if (empty($item)) {
                     $errorMessage = "Item cannot be empty!";
                     $shoppingList = getItemsFromShoppingList($user_id);
+                    $suggestions = getUserFoodsService($user_id);
                     include "../views/user/homepage.php";
                     exit();
                 }

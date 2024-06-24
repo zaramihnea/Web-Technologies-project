@@ -30,5 +30,8 @@
             <input type="submit" value="Login">
         </form>
     </div>
+      <div class="admin-button">
+        <button onclick="window.location.href='admin_controller.php'">Admin Access</button>
+    </div>
   </body>
 </html>

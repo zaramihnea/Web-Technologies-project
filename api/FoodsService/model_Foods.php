@@ -6,6 +6,10 @@ error_reporting(E_ALL);
 function fetchFoodsByPreferences($preferences, $pageSize = 10) {
     $products = [];
 
+    if (empty($preferences)) {
+        $preferences = ['Vegetarian'];
+    }
+
     foreach ($preferences as $preference) {
         $url = "https://world.openfoodfacts.org/cgi/search.pl?action=process&search_terms=" . urlencode($preference) . "&json=true&page_size=" . $pageSize;
         $json = file_get_contents($url);

@@ -67,6 +67,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
                 include '../views/admin/dashboard.php';       
                 break;
+            case 'exportStats':
+                $names = getPreferences();
+                $counter = getPreferenceUsage();
+                $users = getUsers();
+
+                if (isset($_POST['export_csv'])) {
+                    exportStatsToCSV($names, $counter, count($users));
+                } elseif (isset($_POST['export_pdf'])) {
+                    exportStatsToPDF($names, $counter, count($users));
+                }
+                break;   
+            case 'exportToSQL':
+                exportDatabaseToSQL();
+                break;
+            case 'logout':
+                if (isset($_COOKIE["rememberme"])) {
+                    setcookie("rememberme", "", time() - 3600);
+                }
+                session_destroy();
+                header('Location: ../controllers/culinary_controller.php');
+                exit();    
         }
     }
 } 

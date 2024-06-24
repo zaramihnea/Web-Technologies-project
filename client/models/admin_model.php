@@ -255,6 +255,142 @@ function exportDBToCSV() {
     exportTableToCSV('user_shopping_list');
 }
 
+function exportTableToPDF($table) {
+    $mysql = connectToDatabase();
+    $query = "SELECT * FROM $table";
+    $result = $mysql->query($query);
+
+    if ($result->num_rows > 0) {
+        $pdfContent = "%PDF-1.4\n";
+        $pdfContent .= "1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n";
+        $pdfContent .= "2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 /MediaBox [0 0 612 792] >>\nendobj\n";
+        $pdfContent .= "3 0 obj\n<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>\nendobj\n";
+        $pdfContent .= "4 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\nendobj\n";
+
+        $content = "BT /F1 12 Tf 70 700 Td (Table: $table) Tj T* ";
+        $content .= "BT /F1 12 Tf 70 680 Td (";
+        
+        // Set column headers
+        $fields = $result->fetch_fields();
+        foreach ($fields as $field) {
+            $content .= $field->name . " ";
+        }
+        $content .= ") Tj T* ";
+        
+        // Output each row of the data
+        $y = 660;
+        while ($row = $result->fetch_assoc()) {
+            $content .= "BT /F1 12 Tf 70 $y Td (";
+            foreach ($fields as $field) {
+                $content .= $row[$field->name] . " ";
+            }
+            $content .= ") Tj T* ";
+            $y -= 20;
+        }
+        
+        $content = str_replace(array("\r", "\n"), '', $content);
+        $content = $content . "ET";
+
+        $pdfContent .= "5 0 obj\n<< /Length " . strlen($content) . " >>\nstream\n" . $content . "\nendstream\nendobj\n";
+        $pdfContent .= "xref\n0 6\n0000000000 65535 f \n0000000010 00000 n \n0000000077 00000 n \n0000000178 00000 n \n0000000277 00000 n \n0000000376 00000 n \n";
+        $pdfContent .= "trailer\n<< /Root 1 0 R /Size 6 >>\nstartxref\n" . (strlen($pdfContent) - 9) . "\n%%EOF";
+
+        $filename = $table . "_" . date('Y-m-d') . ".pdf";
+
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="' . $filename . '";');
+        echo $pdfContent;
+    } else {
+        echo "No records found.";
+    }
+
+    $mysql->close();
+    exit;
+}
+
+function exportStatsToCSV($names, $counter, $userCount) {
+    $delimiter = ",";
+    $filename = "stats_" . date('Y-m-d') . ".csv";
+
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="' . $filename . '";');
+
+    $f = fopen('php://output', 'w');
+
+    $headers = array_merge(['No. of Users'], $names);
+    fputcsv($f, $headers, $delimiter);
+
+    $data = array_merge([$userCount], $counter);
+    fputcsv($f, $data, $delimiter);
+
+    fclose($f);
+    exit;
+}
+
+function exportStatsToPDF($names, $counter, $userCount) {
+    $content = "<h1>Stats</h1>";
+    $content .= "<table border='1'>";
+    $content .= "<tr><th>No. of Users</th>";
+    foreach ($names as $header) {
+        $content .= "<th>" . htmlspecialchars($header) . "</th>";
+    }
+    $content .= "</tr><tr>";
+    $content .= "<td>" . htmlspecialchars($userCount) . "</td>";
+    foreach ($counter as $info) {
+        $content .= "<td>" . htmlspecialchars($info) . "</td>";
+    }
+    $content .= "</tr></table>";
+
+    header('Content-Type: application/pdf');
+    header('Content-Disposition: attachment; filename="stats_' . date('Y-m-d') . '.pdf"');
+
+    echo "<html><body>" . $content . "</body></html>";
+    exit;
+}
+
+function exportDatabaseToSQL() {
+    $mysql = connectToDatabase();
+    $tables = array();
+    $result = $mysql->query("SHOW TABLES");
+
+    while ($row = $result->fetch_row()) {
+        $tables[] = $row[0];
+    }
+
+    $sqlScript = "";
+    foreach ($tables as $table) {
+        $result = $mysql->query("SELECT * FROM $table");
+        $numFields = $result->field_count;
+
+        $row2 = $mysql->query("SHOW CREATE TABLE $table")->fetch_row();
+        $sqlScript .= "\n\n" . $row2[1] . ";\n\n";
+
+        for ($i = 0; $i < $numFields; $i++) {
+            while ($row = $result->fetch_row()) {
+                $sqlScript .= "INSERT INTO $table VALUES(";
+                for ($j = 0; $j < $numFields; $j++) {
+                    $row[$j] = $row[$j] ? addslashes($row[$j]) : "NULL";
+                    $row[$j] = str_replace("\n", "\\n", $row[$j]);
+                    $sqlScript .= '"' . $row[$j] . '"';
+                    if ($j < ($numFields - 1)) {
+                        $sqlScript .= ',';
+                    }
+                }
+                $sqlScript .= ");\n";
+            }
+        }
+        $sqlScript .= "\n\n\n";
+    }
+
+    $mysql->close();
+
+    $backupFile = 'db-backup-' . time() . '.sql';
+    header('Content-Type: application/sql');
+    header('Content-Disposition: attachment; filename=' . $backupFile);
+    echo $sqlScript;
+    exit;
+}
+
 function closeConnection($stmt, $mysql) {
     if ($stmt && $stmt instanceof mysqli_stmt) {
         $stmt->close();

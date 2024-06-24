@@ -22,36 +22,31 @@
         <input type="hidden" name="action" value="deletePreferences">
         <div class="favorite-foods" id="favoriteFoods">
             <?php
-            if (isset($preferences) && is_array($preferences)) {
+            if (isset($preferences) && is_array($preferences) && !empty($preferences)) {
                 foreach ($preferences as $preference) {
                     echo '<input type="checkbox" id="' . htmlspecialchars($preference) . '" name="preference[]" value="' . htmlspecialchars($preference) . '">';
                     echo '<label for="' . htmlspecialchars($preference) . '">' . htmlspecialchars($preference) . '</label>';
                 }
             } else {
-                echo 'No preferences found.';
+                echo '<p>No preferences found.</p>';
             }
             ?> 
         </div>
         <p style="color:green"><?php if (isset($msg)) { echo $msg; } ?></p>
         <div class="button-container">
-            <button type="submit" id="deleteCircle" class="circle-button">-</button>
+        <button type="submit" id="deleteCircle" class="circle-button" <?php if (!isset($preferences) || !is_array($preferences) || empty($preferences)) { echo 'disabled'; } ?>>-</button>
+            <button type="button" id="addCircle" class="circle-button">+</button>
         </div>
     </form>
-
-    <!-- Button to Open the Modal -->
-    <button id="addCircle" class="circle-button">+</button>
     
-    <!-- The Modal for Adding Preferences -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Add New Preference</h2>
             
-            <!-- Form for Adding Preferences -->
             <form id="addPreferencesForm" action="culinary_controller.php" method="post">
                 <input type="hidden" name="action" value="addPreference">
                 <select id="newPreference" name="newPreference">
-                    <!-- Options will be populated by PHP -->
                     <?php
                     $availablePreferences = getAllPreferences();
                     foreach ($availablePreferences as $preference) {
