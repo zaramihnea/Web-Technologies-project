@@ -1,14 +1,13 @@
-/* Media query for mobile devices */
 @media screen and (max-width: 1096px){
     .container {
-        flex-direction: row; /* Change to horizontal layout on smaller screens */
+        flex-direction: row;
     }
 
     .split {
-        width: 50%; /* Each split screen takes 50% of the screen width */
-        height: 100%; /* Occupy full height */
-        padding: 20px; /* Add padding for spacing */
-        box-sizing: border-box; /* Ensure padding is included in width */
+        width: 50%;
+        height: 100%;
+        padding: 20px;
+        box-sizing: border-box;
     }
 
     .left {
@@ -29,17 +28,16 @@
     }
 }
 
-/* Media query for mobile devices */
 @media screen and (max-width: 600px) {
     .container {
-        flex-direction: column; /* Change to vertical layout on mobile */
-        height: 100vh; /* Set container height to full viewport height */
+        flex-direction: column;
+        height: 100vh;
     }
 
     .split {
-        width: 100%; /* Occupy full width on mobile */
-        height: 50%; /* Each split screen takes 50% of the screen height */
-        box-sizing: border-box; /* Ensure padding is included in width */
+        width: 100%;
+        height: 50%;
+        box-sizing: border-box;
     }
 
     .left {

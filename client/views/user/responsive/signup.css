@@ -1,34 +1,32 @@
-/* Styles for screens smaller than 600px */
 @media screen and (max-width: 600px) {
     .title-container {
-        margin-top: 10px; /* Increase margin for better spacing */
+        margin-top: 10px;
     }
     .login-container {
-        width: 80%; /* Adjust width for better display on smaller screens */
-        padding: 15px; /* Increase padding for better spacing */
+        width: 80%;
+        padding: 15px;
     }
 
     .login-container h2 {
-        font-size: 1.5em; /* Increase font size for better readability */
+        font-size: 1.5em;
     }
 
     .login-container input[type="text"],
     .login-container input[type="password"],
     .login-container input[type="submit"] {
-        padding: 8px; /* Reduce padding for better fitting */
-        font-size: 0.9em; /* Reduce font size for better fitting */
-    }
-}
-/* Styles for screens between 600px and 1024px */
-@media screen and (min-width: 600px) and (max-width: 1024px) {
-    .login-container {
-        width: 15%; /* Adjust width for medium-sized screens */
+        padding: 8px;
+        font-size: 0.9em;
     }
 }
 
-/* Styles for screens larger than 1024px */
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+    .login-container {
+        width: 15%;
+    }
+}
+
 @media screen and (min-width: 1024px) {
     .login-container {
-        width: 25% /* Adjust width for larger screens */
+        width: 25%;
     }
 }

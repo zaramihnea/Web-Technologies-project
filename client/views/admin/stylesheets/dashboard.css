@@ -1,4 +1,3 @@
-/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -86,33 +85,4 @@ button[type="submit"]:hover {
 
 .logout {
     background-color: red !important;
-}
-
-/* Responsive Styles */
-@media screen and (max-width: 768px) {
-    body {
-        overflow: hidden;
-        overflow-y: auto;
-    }
-
-    .content {
-        overflow: auto;
-    }
-
-    th, td {
-        padding: 8px;
-    }
-
-    button img {
-        width: 16px;
-        height: 16px;
-    }
-
-    th, td {
-        white-space: nowrap;
-    }
-}
-
-.stats {
-    background-color: orange;
 }
