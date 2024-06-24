@@ -354,6 +354,7 @@ function getPrefID($preference, $user_id)
     }
 }
 
+
 function getAllPreferences() {
     $url = "http://localhost/Proiect/api/PreferenceService/getAllPreferences";
     $curl = curl_init($url);
@@ -407,7 +408,8 @@ function addPreference($user_id, $preference) {
     ];
 }
 
-function deletePreference($preference_id) {
+function deletePreference($preference_id)
+{
     $url = "http://localhost/Proiect/api/PreferenceService/deletePreference/" . $preference_id;
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -425,6 +427,7 @@ function deletePreference($preference_id) {
         'responseData' => $responseData,
     ];
 }
+
 
 function deletePreferences($user_id, $preferences) {
     $success = true;

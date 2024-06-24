@@ -56,7 +56,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $users = getUsers();
     
                 include '../views/admin/dashboard.php'; 
+                break;
+            case 'exportToPDF':
+                $table = $_POST['table'];
+                exportTableToPDF($table);
 
+                $names = getPreferences();
+                $counter = getPreferenceUsage();
+                $users = getUsers();
+    
+                include '../views/admin/dashboard.php';       
+                break;
         }
     }
 } 

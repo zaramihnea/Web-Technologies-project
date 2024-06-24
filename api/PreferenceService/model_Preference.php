@@ -110,16 +110,16 @@ function getPreferences($user_id)
 }
 
 
-function deletePreference($preference_id, $user_id)
+function deletePreference($preference_id)
 {
     $mysql = connectToDatabase();
-    $sql = "DELETE FROM user_preferences WHERE preference_id = ? AND user_id = ?";
+    $sql = "DELETE FROM user_preferences WHERE id";
     $stmt = $mysql->prepare($sql);
     if (!$stmt) {
         $mysql->close();
         return false;
     }
-    $stmt->bind_param("ii", $preference_id, $user_id);
+    $stmt->bind_param("ii", $preference_id);
     $result = $stmt->execute();
     if (!$result) {
         closeConnection($stmt, $mysql);

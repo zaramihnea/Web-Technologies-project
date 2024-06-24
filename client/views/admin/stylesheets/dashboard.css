@@ -86,6 +86,14 @@ button[type="submit"]:hover {
 
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
+    body {
+        overflow: hidden;
+    }
+
+    .content {
+        overflow: auto;
+    }
+
     th, td {
         padding: 8px;
     }
@@ -93,15 +101,6 @@ button[type="submit"]:hover {
     button img {
         width: 16px;
         height: 16px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    body{
-        overflow-y: hidden;
-    }
-    .table-container {
-        overflow-x: scroll;
     }
 
     th, td {

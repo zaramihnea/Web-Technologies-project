@@ -42,8 +42,8 @@ function getPreferencesService($id){
     }
 }
 
-function deletePreferenceService($user_id, $preference_id){
-    $result = deletePreference($preference_id, $user_id);
+function deletePreferenceService($preference_id){
+    $result = deletePreference($preference_id);
 
     if ($result) {
         http_response_code(200);
